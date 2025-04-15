@@ -291,6 +291,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
     _clapController2.dispose();
     _clapController.dispose();
     _clapControllerBody.dispose();
+    _scrollControllerSC.dispose();
     super.dispose();
   }
 
