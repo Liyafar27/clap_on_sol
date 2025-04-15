@@ -627,92 +627,93 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                         ),
                       ),
                       SizedBox(height: 10),
-                      // SizedBox(height: 150,
-                      //   child: Row(
-                      //     children: [
-                      //       Text(
-                      //         "👉 Tap the hand\n👉 Clap the objects\n👉 Earn \$CLAP tokens\n👉 Repeat and have fun 🎉",
-                      //         style: TextStyle(
-                      //           fontSize: 16,
-                      //           height: 1.5,
-                      //           color: Colors.black87,
-                      //         ),
-                      //       ),
-                      //       Stack(
-                      //         children: [
-                      //           Container(
-                      //             padding: EdgeInsets.only(left: screenWidth * 0.10),
-                      //
-                      //             child: ClipRRect(
-                      //               borderRadius: BorderRadius.circular(20),
-                      //               child: AnimatedContainer(
-                      //                 duration: Duration(milliseconds: 500),
-                      //                 width:
-                      //                     screenWidth < 800
-                      //                         ? screenWidth * 0.25
-                      //                         : screenWidth * 0.20,
-                      //                 transform: Matrix4.skewX(ballSkewBody)
-                      //                   ..scale(ballScaleBody),
-                      //                 decoration: BoxDecoration(
-                      //                   // shape: BoxShape.circle,
-                      //                   color: Colors.white,
-                      //                   boxShadow: [
-                      //                     BoxShadow(
-                      //                       color: Colors.black.withOpacity(0.5),
-                      //                       blurRadius: 10,
-                      //                       spreadRadius: 4,
-                      //                     ),
-                      //                   ],
-                      //                 ),
-                      //                 child: AnimatedSwitcher(
-                      //                   duration: Duration(milliseconds: 100),
-                      //                   child: AspectRatio(
-                      //                     aspectRatio:
-                      //                         _controllerBody.value.aspectRatio,
-                      //                     child: VideoPlayer(_controllerBody),
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ),
-                      //           Container(
-                      //             padding: EdgeInsets.only(left: screenWidth * 0.01,top: screenWidth * 0.07),
-                      //             height:  screenWidth < 800
-                      //                 ? screenWidth * 0.25
-                      //                 : screenWidth * 0.20,
-                      //
-                      //             child: AnimatedBuilder(
-                      //               animation: _arcAnimationBody,
-                      //               builder: (context, child) {
-                      //                 final angle =
-                      //                 lerpDouble(
-                      //                   3 * pi / 190.0,
-                      //                   pi / -360,
-                      //                   _arcAnimationBody.value,
-                      //                 )!;
-                      //                 return GestureDetector(
-                      //                   onTap: _triggerClapBody,
-                      //                   child: Transform.rotate(
-                      //                     angle: angle + pi / 700,
-                      //                     child: SizedBox(
-                      //                       width:
-                      //                       screenWidth < 800
-                      //                           ? screenWidth * 0.25
-                      //                           : screenWidth * 0.30,
-                      //                       child: Image.asset('assets/hand2.png'),
-                      //                     ),
-                      //                   ),
-                      //                 );
-                      //               },
-                      //             ),
-                      //           ),
-                      //
-                      //         ],
-                      //       ),
-                      //
-                      //     ],
-                      //   ),
-                      // ),
+
+                      SizedBox(height: 150,
+                        child: Row(
+                          children: [
+                            Text(
+                              "👉 Tap the hand\n👉 Clap the objects\n👉 Earn \$CLAP tokens\n👉 Repeat and have fun 🎉",
+                              style: TextStyle(
+                                fontSize: 16,
+                                height: 1.5,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            Stack(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(left: screenWidth * 0.10),
+
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: AnimatedContainer(
+                                      duration: Duration(milliseconds: 500),
+                                      width:
+                                          screenWidth < 800
+                                              ? screenWidth * 0.25
+                                              : screenWidth * 0.20,
+                                      transform: Matrix4.skewX(ballSkewBody)
+                                        ..scale(ballScaleBody),
+                                      decoration: BoxDecoration(
+                                        // shape: BoxShape.circle,
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.5),
+                                            blurRadius: 10,
+                                            spreadRadius: 4,
+                                          ),
+                                        ],
+                                      ),
+                                      child: AnimatedSwitcher(
+                                        duration: Duration(milliseconds: 100),
+                                        child: AspectRatio(
+                                          aspectRatio:
+                                              _controllerBody.value.aspectRatio,
+                                          child: VideoPlayer(_controllerBody),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: screenWidth * 0.01,top: screenWidth * 0.07),
+                                  height:  screenWidth < 800
+                                      ? screenWidth * 0.25
+                                      : screenWidth * 0.20,
+
+                                  child: AnimatedBuilder(
+                                    animation: _arcAnimationBody,
+                                    builder: (context, child) {
+                                      final angle =
+                                      lerpDouble(
+                                        3 * pi / 190.0,
+                                        pi / -360,
+                                        _arcAnimationBody.value,
+                                      )!;
+                                      return GestureDetector(
+                                        onTap: _triggerClapBody,
+                                        child: Transform.rotate(
+                                          angle: angle + pi / 700,
+                                          child: SizedBox(
+                                            width:
+                                            screenWidth < 800
+                                                ? screenWidth * 0.25
+                                                : screenWidth * 0.30,
+                                            child: Image.asset('assets/hand2.png'),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+
+                              ],
+                            ),
+
+                          ],
+                        ),
+                      ),
                       SizedBox(height: 24),
                       Text(
                         "Are you ready to clap your way to the top? 💥",
