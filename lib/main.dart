@@ -369,215 +369,215 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                               ),
                             ),
 
-                            // Padding(
-                            //   padding: const EdgeInsets.only(top: 16),
-                            //   child: Stack(
-                            //     children: [
-                            //       Positioned(
-                            //         right: screenWidth * 0.1,
-                            //         child: ClipRRect(
-                            //           borderRadius: BorderRadius.circular(20),
-                            //           child: AnimatedContainer(
-                            //             duration: Duration(milliseconds: 500),
-                            //             width:
-                            //                 screenWidth < 800
-                            //                     ? screenWidth * 0.20
-                            //                     : screenWidth * 0.15,
-                            //             transform: Matrix4.skewX(ballSkew1)
-                            //               ..scale(ballScale1),
-                            //             decoration: BoxDecoration(
-                            //               color: Colors.white,
-                            //               boxShadow: [
-                            //                 BoxShadow(
-                            //                   color: Colors.black.withOpacity(
-                            //                     0.5,
-                            //                   ),
-                            //                   blurRadius: 10,
-                            //                   spreadRadius: 4,
-                            //                 ),
-                            //               ],
-                            //             ),
-                            //             child: AnimatedSwitcher(
-                            //               duration: Duration(milliseconds: 100),
-                            //               child: AspectRatio(
-                            //                 aspectRatio:
-                            //                     _controller3.value.aspectRatio,
-                            //                 child: VideoPlayer(_controller3),
-                            //               ),
-                            //             ),
-                            //           ),
-                            //         ),
-                            //       ),
-                            //       Positioned(
-                            //         right: screenWidth * 0.0001,
-                            //         top:
-                            //             screenWidth < 800
-                            //                 ? screenWidth * 0.08
-                            //                 : screenWidth * 0.08,
-                            //         child: AnimatedBuilder(
-                            //           animation: _arcAnimation1,
-                            //           builder: (context, child) {
-                            //             final angle =
-                            //                 lerpDouble(
-                            //                   3 * pi / 190.0,
-                            //                   pi / -360,
-                            //                   _arcAnimation1.value,
-                            //                 )!;
-                            //             return GestureDetector(
-                            //               onTap: _triggerClap1,
-                            //               child: Transform.rotate(
-                            //                 angle: angle + pi / 700,
-                            //                 child: SizedBox(
-                            //                   width:
-                            //                       screenWidth < 800
-                            //                           ? screenWidth * 0.20
-                            //                           : screenWidth * 0.20,
-                            //                   child: Image.asset(
-                            //                     'assets/hand3.png',
-                            //                   ),
-                            //                 ),
-                            //               ),
-                            //             );
-                            //           },
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            // Container(
-                            //   alignment: Alignment.topCenter,
-                            //   padding: EdgeInsets.only(top: 20),
-                            //   child: ClapLabelBubble(screenWidth: screenWidth),
-                            // ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(top: 16),
-                            //   child: Stack(
-                            //     children: [
-                            //       Positioned(
-                            //         top:
-                            //             screenWidth < 800
-                            //                 ? screenWidth * 0.25
-                            //                 : screenWidth * 0.20,
-                            //         left: screenWidth * 0.13,
-                            //         child: ClipRRect(
-                            //           borderRadius: BorderRadius.circular(20),
-                            //           child: AnimatedContainer(
-                            //             duration: Duration(milliseconds: 500),
-                            //             width:
-                            //                 screenWidth < 800
-                            //                     ? screenWidth * 0.25
-                            //                     : screenWidth * 0.20,
-                            //             transform: Matrix4.skewX(ballSkew)
-                            //               ..scale(ballScale),
-                            //             decoration: BoxDecoration(
-                            //               // shape: BoxShape.circle,
-                            //               color: Colors.white,
-                            //               boxShadow: [
-                            //                 BoxShadow(
-                            //                   color: Colors.black.withOpacity(
-                            //                     0.5,
-                            //                   ),
-                            //                   blurRadius: 10,
-                            //                   spreadRadius: 4,
-                            //                 ),
-                            //               ],
-                            //             ),
-                            //             child: AnimatedSwitcher(
-                            //               duration: Duration(milliseconds: 100),
-                            //               child: AspectRatio(
-                            //                 aspectRatio:
-                            //                     _controller.value.aspectRatio,
-                            //                 child: VideoPlayer(_controller),
-                            //               ),
-                            //             ),
-                            //           ),
-                            //         ),
-                            //       ),
-                            //       Positioned(
-                            //         top:
-                            //             screenWidth < 800
-                            //                 ? screenWidth * 0.35
-                            //                 : screenWidth * 0.30,
-                            //         left:
-                            //             screenWidth < 800
-                            //                 ? screenWidth * 0.0010
-                            //                 : screenWidth * 0.0010,
-                            //         child: AnimatedBuilder(
-                            //           animation: _arcAnimation,
-                            //           builder: (context, child) {
-                            //             final angle =
-                            //                 lerpDouble(
-                            //                   3 * pi / 190.0,
-                            //                   pi / -360,
-                            //                   _arcAnimation.value,
-                            //                 )!;
-                            //             return GestureDetector(
-                            //               onTap: _triggerClap,
-                            //               child: Transform.rotate(
-                            //                 angle: angle + pi / 700,
-                            //                 child: SizedBox(
-                            //                   width:
-                            //                       screenWidth < 800
-                            //                           ? screenWidth * 0.25
-                            //                           : screenWidth * 0.25,
-                            //                   child: Image.asset(
-                            //                     'assets/hand2.png',
-                            //                   ),
-                            //                 ),
-                            //               ),
-                            //             );
-                            //           },
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    right: screenWidth * 0.1,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: AnimatedContainer(
+                                        duration: Duration(milliseconds: 500),
+                                        width:
+                                            screenWidth < 800
+                                                ? screenWidth * 0.20
+                                                : screenWidth * 0.15,
+                                        transform: Matrix4.skewX(ballSkew1)
+                                          ..scale(ballScale1),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withOpacity(
+                                                0.5,
+                                              ),
+                                              blurRadius: 10,
+                                              spreadRadius: 4,
+                                            ),
+                                          ],
+                                        ),
+                                        child: AnimatedSwitcher(
+                                          duration: Duration(milliseconds: 100),
+                                          child: AspectRatio(
+                                            aspectRatio:
+                                                _controller3.value.aspectRatio,
+                                            child: VideoPlayer(_controller3),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    right: screenWidth * 0.0001,
+                                    top:
+                                        screenWidth < 800
+                                            ? screenWidth * 0.08
+                                            : screenWidth * 0.08,
+                                    child: AnimatedBuilder(
+                                      animation: _arcAnimation1,
+                                      builder: (context, child) {
+                                        final angle =
+                                            lerpDouble(
+                                              3 * pi / 190.0,
+                                              pi / -360,
+                                              _arcAnimation1.value,
+                                            )!;
+                                        return GestureDetector(
+                                          onTap: _triggerClap1,
+                                          child: Transform.rotate(
+                                            angle: angle + pi / 700,
+                                            child: SizedBox(
+                                              width:
+                                                  screenWidth < 800
+                                                      ? screenWidth * 0.20
+                                                      : screenWidth * 0.20,
+                                              child: Image.asset(
+                                                'assets/hand3.png',
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.topCenter,
+                              padding: EdgeInsets.only(top: 20),
+                              child: ClapLabelBubble(screenWidth: screenWidth),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top:
+                                        screenWidth < 800
+                                            ? screenWidth * 0.25
+                                            : screenWidth * 0.20,
+                                    left: screenWidth * 0.13,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: AnimatedContainer(
+                                        duration: Duration(milliseconds: 500),
+                                        width:
+                                            screenWidth < 800
+                                                ? screenWidth * 0.25
+                                                : screenWidth * 0.20,
+                                        transform: Matrix4.skewX(ballSkew)
+                                          ..scale(ballScale),
+                                        decoration: BoxDecoration(
+                                          // shape: BoxShape.circle,
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withOpacity(
+                                                0.5,
+                                              ),
+                                              blurRadius: 10,
+                                              spreadRadius: 4,
+                                            ),
+                                          ],
+                                        ),
+                                        child: AnimatedSwitcher(
+                                          duration: Duration(milliseconds: 100),
+                                          child: AspectRatio(
+                                            aspectRatio:
+                                                _controller.value.aspectRatio,
+                                            child: VideoPlayer(_controller),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top:
+                                        screenWidth < 800
+                                            ? screenWidth * 0.35
+                                            : screenWidth * 0.30,
+                                    left:
+                                        screenWidth < 800
+                                            ? screenWidth * 0.0010
+                                            : screenWidth * 0.0010,
+                                    child: AnimatedBuilder(
+                                      animation: _arcAnimation,
+                                      builder: (context, child) {
+                                        final angle =
+                                            lerpDouble(
+                                              3 * pi / 190.0,
+                                              pi / -360,
+                                              _arcAnimation.value,
+                                            )!;
+                                        return GestureDetector(
+                                          onTap: _triggerClap,
+                                          child: Transform.rotate(
+                                            angle: angle + pi / 700,
+                                            child: SizedBox(
+                                              width:
+                                                  screenWidth < 800
+                                                      ? screenWidth * 0.25
+                                                      : screenWidth * 0.25,
+                                              child: Image.asset(
+                                                'assets/hand2.png',
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
 
-                      // Container(
-                      //   margin: EdgeInsets.all(8),
-                      //   padding: EdgeInsets.symmetric(horizontal: 8),
-                      //
-                      //   decoration: BoxDecoration(
-                      //     color: Colors.black38,
-                      //     borderRadius: BorderRadius.circular(12),
-                      //     border: Border.all(color: Colors.white24),
-                      //   ),
-                      //   child: Row(
-                      //     mainAxisSize: MainAxisSize.min,
-                      //     children: [
-                      //       SelectableText(
-                      //         "Bz7vVzQhm2KMW1XgcrDruYega1MiwrAs1DQysrx4tFkp",
-                      //         style: TextStyle(
-                      //           color: Colors.white,
-                      //           fontSize:
-                      //               screenWidth < 800
-                      //                   ? screenWidth / 40
-                      //                   : screenWidth / 30,
-                      //         ),
-                      //       ),
-                      //       IconButton(
-                      //         icon: const Icon(
-                      //           Icons.copy,
-                      //           color: Colors.white70,
-                      //         ),
-                      //         onPressed: () {
-                      //           Clipboard.setData(
-                      //             ClipboardData(
-                      //               text:
-                      //                   'Bz7vVzQhm2KMW1XgcrDruYega1MiwrAs1DQysrx4tFkp',
-                      //             ),
-                      //           );
-                      //           ScaffoldMessenger.of(context).showSnackBar(
-                      //             const SnackBar(content: Text("Copied!")),
-                      //           );
-                      //         },
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
+                      Container(
+                        margin: EdgeInsets.all(8),
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+
+                        decoration: BoxDecoration(
+                          color: Colors.black38,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.white24),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SelectableText(
+                              "Bz7vVzQhm2KMW1XgcrDruYega1MiwrAs1DQysrx4tFkp",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize:
+                                    screenWidth < 800
+                                        ? screenWidth / 40
+                                        : screenWidth / 30,
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.copy,
+                                color: Colors.white70,
+                              ),
+                              onPressed: () {
+                                Clipboard.setData(
+                                  ClipboardData(
+                                    text:
+                                        'Bz7vVzQhm2KMW1XgcrDruYega1MiwrAs1DQysrx4tFkp',
+                                  ),
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text("Copied!")),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
