@@ -729,6 +729,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                       ),
                       Text(' Let’s clap it out!'),
                       SizedBox(height: 26),
+
                       // Container(
                       //   height: 500,
                       //   decoration: BoxDecoration(
