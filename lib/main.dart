@@ -128,19 +128,19 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
     // 🔄 Быстрое проигрывание и пауза
     _controller.setLooping(false);
     _controller.play();
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 1500));
     _controller.pause();
     _controller.seekTo(Duration.zero);
 
     _controllerBody.setLooping(false);
     _controllerBody.play();
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 1500));
     _controllerBody.pause();
     _controllerBody.seekTo(Duration.zero);
 
     _controller3.setLooping(false);
     _controller3.play();
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds:1500));
     _controller3.pause();
     _controller3.seekTo(Duration.zero);
   }
