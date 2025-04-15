@@ -429,7 +429,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                           child: AspectRatio(
                                             aspectRatio:
                                                 _controller3.value.aspectRatio,
-                                            child: VideoPlayer(_controller3),
+                                            child: RepaintBoundary(child: VideoPlayer(_controller3)),
                                           ),
                                         ),
                                       ),
@@ -514,7 +514,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                           child: AspectRatio(
                                             aspectRatio:
                                                 _controller.value.aspectRatio,
-                                            child: VideoPlayer(_controller),
+                                            child: RepaintBoundary(child: VideoPlayer(_controller)),
                                           ),
                                         ),
                                       ),
@@ -697,7 +697,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                         child: AspectRatio(
                                           aspectRatio:
                                               _controllerBody.value.aspectRatio,
-                                          child: VideoPlayer(_controllerBody),
+                                          child: RepaintBoundary(child: VideoPlayer(_controllerBody)),
                                         ),
                                       ),
                                     ),
@@ -963,7 +963,7 @@ class _DexScreenerChartState extends State<DexScreenerChart> {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
-      child: HtmlElementView(viewType: viewId),
+      child: RepaintBoundary(child: HtmlElementView(viewType: viewId)),
     );
   }
 }
