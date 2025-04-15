@@ -110,6 +110,9 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   late VideoPlayerController _controller3;
 
   bool _isPlaying = false;
+  bool _isPlaying2 = false;
+  bool _isPlayingBody = false;
+
 
   bool isAnimating = false;
   double ballScale = 1;
@@ -227,16 +230,16 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
     _controllerBody.setPlaybackSpeed(1);
     if (_controllerBody.value.isPlaying) {
       _controllerBody.pause();
-      setState(() => _isPlaying = false);
+      setState(() => _isPlayingBody = false);
     } else {
       _controllerBody.seekTo(Duration.zero);
       _controllerBody.play();
-      setState(() => _isPlaying = true);
+      setState(() => _isPlayingBody = true);
 
       Future.delayed(Duration(seconds: 1), () {
         if (_controllerBody.value.isPlaying) {
           _controllerBody.pause();
-          setState(() => _isPlaying = false);
+          setState(() => _isPlayingBody = false);
         }
       });
     }
@@ -246,16 +249,16 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
     _controller3.setPlaybackSpeed(1.5);
     if (_controller3.value.isPlaying) {
       _controller3.pause();
-      setState(() => _isPlaying = false);
+      setState(() => _isPlaying2 = false);
     } else {
       _controller3.seekTo(Duration.zero);
       _controller3.play();
-      setState(() => _isPlaying = true);
+      setState(() => _isPlaying2 = true);
 
       Future.delayed(Duration(seconds: 2), () {
         if (_controller3.value.isPlaying) {
           _controller3.pause();
-          setState(() => _isPlaying = false);
+          setState(() => _isPlaying2 = false);
         }
       });
     }
