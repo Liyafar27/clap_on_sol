@@ -108,7 +108,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   late VideoPlayerController _controller;
   late VideoPlayerController _controllerBody;
   late VideoPlayerController _controller3;
-  final ScrollController _scrollControllerSC = ScrollController();
 
   bool _isPlaying = false;
 
@@ -318,7 +317,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
     _clapController2.dispose();
     _clapController.dispose();
     _clapControllerBody.dispose();
-    _scrollControllerSC.dispose();
     super.dispose();
   }
 
@@ -371,7 +369,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: ScrollDownArrow(
-                                scrollController: _scrollControllerSC,
                               ),
                             ),
 
@@ -1148,25 +1145,15 @@ class _ScrollDownArrowState extends State<ScrollDownArrow>
     super.dispose();
   }
 
-  void _scrollDown() {
-    widget.scrollController.animateTo(
-      widget.scrollController.offset + 300, // сколько прокрутить (в пикселях)
-      duration: Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _scrollDown,
-      child: SlideTransition(
-        position: _animation,
-        child: Icon(
-          Icons.keyboard_arrow_down_rounded,
-          color: Colors.white,
-          size: 50,
-        ),
+    return SlideTransition(
+      position: _animation,
+      child: Icon(
+        Icons.keyboard_arrow_down_rounded,
+        color: Colors.white,
+        size: 50,
       ),
     );
   }
