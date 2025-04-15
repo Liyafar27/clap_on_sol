@@ -17,75 +17,75 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: SplashScreen());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: ClapOnSolPage());
   }
 }
 
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
+// class SplashScreen extends StatefulWidget {
+//   @override
+//   _SplashScreenState createState() => _SplashScreenState();
+// }
+//
+// class _SplashScreenState extends State<SplashScreen> {
+//   @override
+//   void initState() {
+//     super.initState();
+//
+//     // Симуляция задержки, пока загружается сайт
+//     Timer(Duration(seconds: 3), () {
+//       Navigator.pushReplacement(
+//         context,
+//         MaterialPageRoute(builder: (context) => ClapOnSolPage()),
+//       );
+//     });
+//   }
 
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-
-    // Симуляция задержки, пока загружается сайт
-    Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => ClapOnSolPage()),
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFFF69B4),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 300,
-              alignment: Alignment.topCenter,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Transform.translate(
-                    offset: const Offset(2, 4),
-                    // Смещение тени
-                    child: Image.asset(
-                      'assets/title.png',
-                      color: Colors.black.withOpacity(0.7), // "тень"
-                    ),
-                  ),
-                  Image.asset('assets/title.png'),
-                ],
-              ),
-            ),
-            SizedBox(
-              width: 100,
-              child: Image.asset(
-                'assets/slap.gif',
-                // color: Colors.black.withOpacity(0.3),
-                fit: BoxFit.cover,
-                // "тень"
-              ),
-            ),
-            SizedBox(height: 20),
-
-            CircularProgressIndicator(color: Colors.white),
-            SizedBox(height: 20),
-            Text('Progressing...'),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Color(0xFFFF69B4),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Container(
+//               width: 300,
+//               alignment: Alignment.topCenter,
+//               child: Stack(
+//                 alignment: Alignment.center,
+//                 children: [
+//                   Transform.translate(
+//                     offset: const Offset(2, 4),
+//                     // Смещение тени
+//                     child: Image.asset(
+//                       'assets/title.png',
+//                       color: Colors.black.withOpacity(0.7), // "тень"
+//                     ),
+//                   ),
+//                   Image.asset('assets/title.png'),
+//                 ],
+//               ),
+//             ),
+//             SizedBox(
+//               width: 100,
+//               child: Image.asset(
+//                 'assets/slap.gif',
+//                 // color: Colors.black.withOpacity(0.3),
+//                 fit: BoxFit.cover,
+//                 // "тень"
+//               ),
+//             ),
+//             SizedBox(height: 20),
+//
+//             CircularProgressIndicator(color: Colors.white),
+//             SizedBox(height: 20),
+//             Text('Progressing...'),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class ClapOnSolApp extends StatelessWidget {
   const ClapOnSolApp({super.key});
