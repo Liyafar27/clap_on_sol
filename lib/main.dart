@@ -119,13 +119,40 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   double ballSkew1 = 0;
   double ballScaleBody = 1;
   double ballSkewBody = 0;
+  Future<void> _initAllVideos() async {
+    await _controller.initialize();
+    await _controllerBody.initialize();
+    await _controller3.initialize();
 
+    setState(() {}); // чтобы отобразились виджеты после инициализации
+
+    // 🔄 Быстрое проигрывание и пауза
+    _controller.setLooping(false);
+    _controller.play();
+    await Future.delayed(Duration(milliseconds: 500));
+    _controller.pause();
+    _controller.seekTo(Duration.zero);
+
+    _controllerBody.setLooping(false);
+    _controllerBody.play();
+    await Future.delayed(Duration(milliseconds: 500));
+    _controllerBody.pause();
+    _controllerBody.seekTo(Duration.zero);
+
+    _controller3.setLooping(false);
+    _controller3.play();
+    await Future.delayed(Duration(milliseconds: 500));
+    _controller3.pause();
+    _controller3.seekTo(Duration.zero);
+  }
   @override
   void initState() {
     super.initState();
+
     _controller = VideoPlayerController.asset('assets/slap.mp4');
     _controllerBody = VideoPlayerController.asset('assets/slap1.mp4');
     _controller3 = VideoPlayerController.asset('assets/slap2.mp4');
+    _initAllVideos();
     _controller.initialize().then((_) {
       _controller.setLooping(true);
       setState(() {});
@@ -726,27 +753,37 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                       ),
 
                       Text(
-                        'Whether you\'re here to have fun or farm some digital chaos, this is the place to let your inner degen high-five the blockchain',
+                        'Whether you\'re here to have fun or farm some digital chaos, this is the place to let your inner degen high-five the blockchain', style: TextStyle(
+                        fontSize: 16,
+                        height: 1.5,
+                        color: Colors.black87,
                       ),
-                      Text(' Let’s clap it out!'),
+                      ),
+                      Text(' Let’s clap it out!' ,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black87,
+                        ),
+                      ),
                       SizedBox(height: 26),
 
-                      // Container(
-                      //   height: 500,
-                      //   decoration: BoxDecoration(
-                      //     color: const Color(0xFF1A1A1A),
-                      //     borderRadius: BorderRadius.circular(20),
-                      //     boxShadow: [
-                      //       BoxShadow(
-                      //         color: const Color(0xFF00FF9D).withOpacity(0.1),
-                      //         spreadRadius: 5,
-                      //         blurRadius: 15,
-                      //         offset: const Offset(0, 3),
-                      //       ),
-                      //     ],
-                      //   ),
-                      //   child: const DexScreenerChart(),
-                      // ),
+                      Container(
+                        height: 500,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1A1A1A),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFF00FF9D).withOpacity(0.1),
+                              spreadRadius: 5,
+                              blurRadius: 15,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: const DexScreenerChart(),
+                      ),
                     ],
                   ),
                 ),
