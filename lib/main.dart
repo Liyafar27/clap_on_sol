@@ -1111,9 +1111,8 @@ class CurvedContainerPainter extends CustomPainter {
 }
 
 class ScrollDownArrow extends StatefulWidget {
-  final ScrollController scrollController;
 
-  const ScrollDownArrow({super.key, required this.scrollController});
+  const ScrollDownArrow({super.key});
 
   @override
   State<ScrollDownArrow> createState() => _ScrollDownArrowState();
