@@ -536,262 +536,262 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                         ),
                       ),
 
-                      Container(
-                        margin: EdgeInsets.all(8),
-                        padding: EdgeInsets.symmetric(horizontal: 8),
-
-                        decoration: BoxDecoration(
-                          color: Colors.black38,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.white24),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SelectableText(
-                              "Bz7vVzQhm2KMW1XgcrDruYega1MiwrAs1DQysrx4tFkp",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize:
-                                    screenWidth < 800
-                                        ? screenWidth / 40
-                                        : screenWidth / 30,
-                              ),
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.copy,
-                                color: Colors.white70,
-                              ),
-                              onPressed: () {
-                                Clipboard.setData(
-                                  ClipboardData(
-                                    text:
-                                        'Bz7vVzQhm2KMW1XgcrDruYega1MiwrAs1DQysrx4tFkp',
-                                  ),
-                                );
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text("Copied!")),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Container(
+                      //   margin: EdgeInsets.all(8),
+                      //   padding: EdgeInsets.symmetric(horizontal: 8),
+                      //
+                      //   decoration: BoxDecoration(
+                      //     color: Colors.black38,
+                      //     borderRadius: BorderRadius.circular(12),
+                      //     border: Border.all(color: Colors.white24),
+                      //   ),
+                      //   child: Row(
+                      //     mainAxisSize: MainAxisSize.min,
+                      //     children: [
+                      //       SelectableText(
+                      //         "Bz7vVzQhm2KMW1XgcrDruYega1MiwrAs1DQysrx4tFkp",
+                      //         style: TextStyle(
+                      //           color: Colors.white,
+                      //           fontSize:
+                      //               screenWidth < 800
+                      //                   ? screenWidth / 40
+                      //                   : screenWidth / 30,
+                      //         ),
+                      //       ),
+                      //       IconButton(
+                      //         icon: const Icon(
+                      //           Icons.copy,
+                      //           color: Colors.white70,
+                      //         ),
+                      //         onPressed: () {
+                      //           Clipboard.setData(
+                      //             ClipboardData(
+                      //               text:
+                      //                   'Bz7vVzQhm2KMW1XgcrDruYega1MiwrAs1DQysrx4tFkp',
+                      //             ),
+                      //           );
+                      //           ScaffoldMessenger.of(context).showSnackBar(
+                      //             const SnackBar(content: Text("Copied!")),
+                      //           );
+                      //         },
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
 
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 60,
-                    horizontal: 40,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "🔥 Welcome to ClapOnSol!",
-                        style: TextStyle(
-                          fontSize: 36,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      SizedBox(height: 24),
-                      Text(
-                        "Dive into the wild world of Web3 fun on Solana! 🌊",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      SizedBox(height: 16),
-                      Text(
-                        "Here, clapping isn’t just for applause — it’s a way of life. 😄",
-                        style: TextStyle(fontSize: 18, color: Colors.black87),
-                      ),
-                      SizedBox(height: 16),
-                      Text(
-                        "👋 Tap the magic hand, slap the objects, and start stacking \$CLAP — our meme-powered token built for the true Solana degens.",
-                        style: TextStyle(fontSize: 18, color: Colors.black87),
-                      ),
-                      SizedBox(height: 20),
-                      Text(
-                        "🚀 How it works:",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      SizedBox(height: 150,
-                        child: Row(
-                          children: [
-                            Text(
-                              "👉 Tap the hand\n👉 Clap the objects\n👉 Earn \$CLAP tokens\n👉 Repeat and have fun 🎉",
-                              style: TextStyle(
-                                fontSize: 16,
-                                height: 1.5,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            Stack(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(left: screenWidth * 0.10),
-
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: AnimatedContainer(
-                                      duration: Duration(milliseconds: 500),
-                                      width:
-                                          screenWidth < 800
-                                              ? screenWidth * 0.25
-                                              : screenWidth * 0.20,
-                                      transform: Matrix4.skewX(ballSkewBody)
-                                        ..scale(ballScaleBody),
-                                      decoration: BoxDecoration(
-                                        // shape: BoxShape.circle,
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black.withOpacity(0.5),
-                                            blurRadius: 10,
-                                            spreadRadius: 4,
-                                          ),
-                                        ],
-                                      ),
-                                      child: AnimatedSwitcher(
-                                        duration: Duration(milliseconds: 100),
-                                        child: AspectRatio(
-                                          aspectRatio:
-                                              _controllerBody.value.aspectRatio,
-                                          child: VideoPlayer(_controllerBody),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(left: screenWidth * 0.01,top: screenWidth * 0.07),
-                                  height:  screenWidth < 800
-                                      ? screenWidth * 0.25
-                                      : screenWidth * 0.20,
-
-                                  child: AnimatedBuilder(
-                                    animation: _arcAnimationBody,
-                                    builder: (context, child) {
-                                      final angle =
-                                      lerpDouble(
-                                        3 * pi / 190.0,
-                                        pi / -360,
-                                        _arcAnimationBody.value,
-                                      )!;
-                                      return GestureDetector(
-                                        onTap: _triggerClapBody,
-                                        child: Transform.rotate(
-                                          angle: angle + pi / 700,
-                                          child: SizedBox(
-                                            width:
-                                            screenWidth < 800
-                                                ? screenWidth * 0.25
-                                                : screenWidth * 0.30,
-                                            child: Image.asset('assets/hand2.png'),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-
-                              ],
-                            ),
-
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 24),
-                      Text(
-                        "Are you ready to clap your way to the top? 💥",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black87,
-                        ),
-                      ),
-
-                      Text(
-                        'Whether you\'re here to have fun or farm some digital chaos, this is the place to let your inner degen high-five the blockchain',
-                      ),
-                      Text(' Let’s clap it out!'),
-                      SizedBox(height: 26),
-                      Container(
-                        height: 500,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF1A1A1A),
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color(0xFF00FF9D).withOpacity(0.1),
-                              spreadRadius: 5,
-                              blurRadius: 15,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: const DexScreenerChart(),
-                      ),
-                    ],
-                  ),
-                ).animate().fadeIn().slideY(begin: 0.2, end: 0),
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.9),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.5),
-                          blurRadius: 10,
-                          spreadRadius: 5,
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Wrap(
-                        spacing: 30,
-                        runSpacing: 20,
-                        alignment: WrapAlignment.center,
-                        children: [
-                          _buildSocialButton(
-                            'X (Twitter)',
-                            'https://x.com/claponsolx',
-                            const Color(0xFF1DA1F2),
-                            '𝕏',
-                          ),
-                          _buildSocialButton(
-                            'Telegram',
-                            'https://t.me/wapcoin',
-                            const Color(0xFF0088CC),
-                            '✈️',
-                          ),
-                          _buildSocialButton(
-                            'DexScreener',
-                            'https://dexscreener.com/solana/8pr4PXNzG8KcgzAkf5tebuPh1ct9ke5eC6VCd3PngutC',
-                            const Color(0xFF00FF9D),
-                            '📊',
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                // Container(
+                //   padding: const EdgeInsets.symmetric(
+                //     vertical: 60,
+                //     horizontal: 40,
+                //   ),
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       Text(
+                //         "🔥 Welcome to ClapOnSol!",
+                //         style: TextStyle(
+                //           fontSize: 36,
+                //           fontWeight: FontWeight.bold,
+                //           color: Colors.black87,
+                //         ),
+                //       ),
+                //       SizedBox(height: 24),
+                //       Text(
+                //         "Dive into the wild world of Web3 fun on Solana! 🌊",
+                //         style: TextStyle(
+                //           fontSize: 20,
+                //           fontWeight: FontWeight.w500,
+                //           color: Colors.black87,
+                //         ),
+                //       ),
+                //       SizedBox(height: 16),
+                //       Text(
+                //         "Here, clapping isn’t just for applause — it’s a way of life. 😄",
+                //         style: TextStyle(fontSize: 18, color: Colors.black87),
+                //       ),
+                //       SizedBox(height: 16),
+                //       Text(
+                //         "👋 Tap the magic hand, slap the objects, and start stacking \$CLAP — our meme-powered token built for the true Solana degens.",
+                //         style: TextStyle(fontSize: 18, color: Colors.black87),
+                //       ),
+                //       SizedBox(height: 20),
+                //       Text(
+                //         "🚀 How it works:",
+                //         style: TextStyle(
+                //           fontSize: 20,
+                //           fontWeight: FontWeight.bold,
+                //           color: Colors.black87,
+                //         ),
+                //       ),
+                //       SizedBox(height: 10),
+                //       SizedBox(height: 150,
+                //         child: Row(
+                //           children: [
+                //             Text(
+                //               "👉 Tap the hand\n👉 Clap the objects\n👉 Earn \$CLAP tokens\n👉 Repeat and have fun 🎉",
+                //               style: TextStyle(
+                //                 fontSize: 16,
+                //                 height: 1.5,
+                //                 color: Colors.black87,
+                //               ),
+                //             ),
+                //             Stack(
+                //               children: [
+                //                 Container(
+                //                   padding: EdgeInsets.only(left: screenWidth * 0.10),
+                //
+                //                   child: ClipRRect(
+                //                     borderRadius: BorderRadius.circular(20),
+                //                     child: AnimatedContainer(
+                //                       duration: Duration(milliseconds: 500),
+                //                       width:
+                //                           screenWidth < 800
+                //                               ? screenWidth * 0.25
+                //                               : screenWidth * 0.20,
+                //                       transform: Matrix4.skewX(ballSkewBody)
+                //                         ..scale(ballScaleBody),
+                //                       decoration: BoxDecoration(
+                //                         // shape: BoxShape.circle,
+                //                         color: Colors.white,
+                //                         boxShadow: [
+                //                           BoxShadow(
+                //                             color: Colors.black.withOpacity(0.5),
+                //                             blurRadius: 10,
+                //                             spreadRadius: 4,
+                //                           ),
+                //                         ],
+                //                       ),
+                //                       child: AnimatedSwitcher(
+                //                         duration: Duration(milliseconds: 100),
+                //                         child: AspectRatio(
+                //                           aspectRatio:
+                //                               _controllerBody.value.aspectRatio,
+                //                           child: VideoPlayer(_controllerBody),
+                //                         ),
+                //                       ),
+                //                     ),
+                //                   ),
+                //                 ),
+                //                 Container(
+                //                   padding: EdgeInsets.only(left: screenWidth * 0.01,top: screenWidth * 0.07),
+                //                   height:  screenWidth < 800
+                //                       ? screenWidth * 0.25
+                //                       : screenWidth * 0.20,
+                //
+                //                   child: AnimatedBuilder(
+                //                     animation: _arcAnimationBody,
+                //                     builder: (context, child) {
+                //                       final angle =
+                //                       lerpDouble(
+                //                         3 * pi / 190.0,
+                //                         pi / -360,
+                //                         _arcAnimationBody.value,
+                //                       )!;
+                //                       return GestureDetector(
+                //                         onTap: _triggerClapBody,
+                //                         child: Transform.rotate(
+                //                           angle: angle + pi / 700,
+                //                           child: SizedBox(
+                //                             width:
+                //                             screenWidth < 800
+                //                                 ? screenWidth * 0.25
+                //                                 : screenWidth * 0.30,
+                //                             child: Image.asset('assets/hand2.png'),
+                //                           ),
+                //                         ),
+                //                       );
+                //                     },
+                //                   ),
+                //                 ),
+                //
+                //               ],
+                //             ),
+                //
+                //           ],
+                //         ),
+                //       ),
+                //       SizedBox(height: 24),
+                //       Text(
+                //         "Are you ready to clap your way to the top? 💥",
+                //         style: TextStyle(
+                //           fontSize: 18,
+                //           fontStyle: FontStyle.italic,
+                //           color: Colors.black87,
+                //         ),
+                //       ),
+                //
+                //       Text(
+                //         'Whether you\'re here to have fun or farm some digital chaos, this is the place to let your inner degen high-five the blockchain',
+                //       ),
+                //       Text(' Let’s clap it out!'),
+                //       SizedBox(height: 26),
+                //       Container(
+                //         height: 500,
+                //         decoration: BoxDecoration(
+                //           color: const Color(0xFF1A1A1A),
+                //           borderRadius: BorderRadius.circular(20),
+                //           boxShadow: [
+                //             BoxShadow(
+                //               color: const Color(0xFF00FF9D).withOpacity(0.1),
+                //               spreadRadius: 5,
+                //               blurRadius: 15,
+                //               offset: const Offset(0, 3),
+                //             ),
+                //           ],
+                //         ),
+                //         child: const DexScreenerChart(),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // Positioned(
+                //   left: 0,
+                //   right: 0,
+                //   bottom: 0,
+                //   child: Container(
+                //     padding: const EdgeInsets.symmetric(vertical: 20),
+                //     decoration: BoxDecoration(
+                //       color: Colors.black.withOpacity(0.9),
+                //       boxShadow: [
+                //         BoxShadow(
+                //           color: Colors.black.withOpacity(0.5),
+                //           blurRadius: 10,
+                //           spreadRadius: 5,
+                //         ),
+                //       ],
+                //     ),
+                //     child: Center(
+                //       child: Wrap(
+                //         spacing: 30,
+                //         runSpacing: 20,
+                //         alignment: WrapAlignment.center,
+                //         children: [
+                //           _buildSocialButton(
+                //             'X (Twitter)',
+                //             'https://x.com/claponsolx',
+                //             const Color(0xFF1DA1F2),
+                //             '𝕏',
+                //           ),
+                //           _buildSocialButton(
+                //             'Telegram',
+                //             'https://t.me/wapcoin',
+                //             const Color(0xFF0088CC),
+                //             '✈️',
+                //           ),
+                //           _buildSocialButton(
+                //             'DexScreener',
+                //             'https://dexscreener.com/solana/8pr4PXNzG8KcgzAkf5tebuPh1ct9ke5eC6VCd3PngutC',
+                //             const Color(0xFF00FF9D),
+                //             '📊',
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           )
