@@ -327,7 +327,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
     return Scaffold(
       backgroundColor: Colors.white,
       body:  SingleChildScrollView(
-            // controller: _scrollControllerSC,
             child: Column(
               children: [
                 Container(
@@ -1112,7 +1111,7 @@ class CurvedContainerPainter extends CustomPainter {
 
 class ScrollDownArrow extends StatefulWidget {
 
-  const ScrollDownArrow({super.key});
+  const ScrollDownArrow({super.key, });
 
   @override
   State<ScrollDownArrow> createState() => _ScrollDownArrowState();
