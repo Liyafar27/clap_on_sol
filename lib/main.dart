@@ -302,7 +302,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
     return Scaffold(
       backgroundColor: Colors.white,
       body:  SingleChildScrollView(
-            controller: _scrollControllerSC,
+            // controller: _scrollControllerSC,
             child: Column(
               children: [
                 Container(
@@ -750,48 +750,43 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                     ],
                   ),
                 ),
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.9),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.5),
-                          blurRadius: 10,
-                          spreadRadius: 5,
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.9),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        blurRadius: 10,
+                        spreadRadius: 5,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Wrap(
+                      spacing: 30,
+                      runSpacing: 20,
+                      alignment: WrapAlignment.center,
+                      children: [
+                        _buildSocialButton(
+                          'X (Twitter)',
+                          'https://x.com/claponsolx',
+                          const Color(0xFF1DA1F2),
+                          '𝕏',
+                        ),
+                        _buildSocialButton(
+                          'Telegram',
+                          'https://t.me/wapcoin',
+                          const Color(0xFF0088CC),
+                          '✈️',
+                        ),
+                        _buildSocialButton(
+                          'DexScreener',
+                          'https://dexscreener.com/solana/8pr4PXNzG8KcgzAkf5tebuPh1ct9ke5eC6VCd3PngutC',
+                          const Color(0xFF00FF9D),
+                          '📊',
                         ),
                       ],
-                    ),
-                    child: Center(
-                      child: Wrap(
-                        spacing: 30,
-                        runSpacing: 20,
-                        alignment: WrapAlignment.center,
-                        children: [
-                          _buildSocialButton(
-                            'X (Twitter)',
-                            'https://x.com/claponsolx',
-                            const Color(0xFF1DA1F2),
-                            '𝕏',
-                          ),
-                          _buildSocialButton(
-                            'Telegram',
-                            'https://t.me/wapcoin',
-                            const Color(0xFF0088CC),
-                            '✈️',
-                          ),
-                          _buildSocialButton(
-                            'DexScreener',
-                            'https://dexscreener.com/solana/8pr4PXNzG8KcgzAkf5tebuPh1ct9ke5eC6VCd3PngutC',
-                            const Color(0xFF00FF9D),
-                            '📊',
-                          ),
-                        ],
-                      ),
                     ),
                   ),
                 ),
