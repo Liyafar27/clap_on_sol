@@ -1,19 +1,90 @@
 import 'dart:async';
+import 'dart:html' as html;
 import 'dart:math';
 import 'dart:ui';
-import 'dart:html' as html;
 import 'dart:ui_web' as ui;
-import 'package:flutter_animate/flutter_animate.dart';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
 
 void main() {
-  runApp(const ClapOnSolApp());
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(debugShowCheckedModeBanner: false, home: SplashScreen());
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    // Симуляция задержки, пока загружается сайт
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => ClapOnSolApp()),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFFFF69B4),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 300,
+              alignment: Alignment.topCenter,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Transform.translate(
+                    offset: const Offset(2, 4),
+                    // Смещение тени
+                    child: Image.asset(
+                      'assets/title.png',
+                      color: Colors.black.withOpacity(0.7), // "тень"
+                    ),
+                  ),
+                  Image.asset('assets/title.png'),
+                ],
+              ),
+            ),
+            SizedBox(
+              width: 100,
+              child: Image.asset(
+                'assets/slap.gif',
+                // color: Colors.black.withOpacity(0.3),
+                fit: BoxFit.cover,
+                // "тень"
+              ),
+            ),
+            SizedBox(height: 20),
+
+            CircularProgressIndicator(color: Colors.white),
+            SizedBox(height: 20),
+            Text('Progressing...'),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class ClapOnSolApp extends StatelessWidget {
@@ -39,14 +110,16 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
     with TickerProviderStateMixin {
   late AnimationController _clapController;
   late AnimationController _clapController2;
+  late AnimationController _clapControllerBody;
 
   late Animation<double> _arcAnimation;
   late Animation<double> _arcAnimation1;
+  late Animation<double> _arcAnimationBody;
 
   late VideoPlayerController _controller;
-  late VideoPlayerController _controller1;
-  late VideoPlayerController _controller2;
+  late VideoPlayerController _controllerBody;
   late VideoPlayerController _controller3;
+  final ScrollController _scrollControllerSC = ScrollController();
 
   bool _isPlaying = false;
 
@@ -55,24 +128,21 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   double ballSkew = 0;
   double ballScale1 = 1;
   double ballSkew1 = 0;
+  double ballScaleBody = 1;
+  double ballSkewBody = 0;
 
   @override
   void initState() {
     super.initState();
     _controller = VideoPlayerController.asset('assets/slap.mp4');
-    _controller1 = VideoPlayerController.asset('assets/slap1.mp4');
-    _controller2 = VideoPlayerController.asset('assets/slap2.mp4');
-    _controller3 = VideoPlayerController.asset('assets/slap4.mp4');
+    _controllerBody = VideoPlayerController.asset('assets/slap1.mp4');
+    _controller3 = VideoPlayerController.asset('assets/slap2.mp4');
     _controller.initialize().then((_) {
       _controller.setLooping(true);
       setState(() {});
     });
-    _controller1.initialize().then((_) {
-      _controller1.setLooping(true);
-      setState(() {});
-    });
-    _controller2.initialize().then((_) {
-      _controller2.setLooping(true);
+    _controllerBody.initialize().then((_) {
+      _controllerBody.setLooping(true);
       setState(() {});
     });
 
@@ -89,12 +159,18 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
       vsync: this,
       duration: const Duration(milliseconds: 150),
     );
-
+    _clapControllerBody = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 150),
+    );
     _arcAnimation = Tween<double>(begin: 13, end: -2).animate(
       CurvedAnimation(parent: _clapController, curve: Curves.easeOutBack),
     );
     _arcAnimation1 = Tween<double>(begin: -13, end: 2).animate(
       CurvedAnimation(parent: _clapController2, curve: Curves.easeOutBack),
+    );
+    _arcAnimationBody = Tween<double>(begin: 13, end: 2).animate(
+      CurvedAnimation(parent: _clapControllerBody, curve: Curves.easeOutBack),
     );
     _clapController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -106,9 +182,15 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
         _clapController2.reverse();
       }
     });
+    _clapControllerBody.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _clapControllerBody.reverse();
+      }
+    });
   }
 
   void _togglePlayPause() {
+    _controller.setPlaybackSpeed(0.8);
     if (_controller.value.isPlaying) {
       _controller.pause();
       setState(() => _isPlaying = false);
@@ -116,32 +198,37 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
       _controller.seekTo(Duration.zero);
       _controller.play();
       setState(() => _isPlaying = true);
+
+      Future.delayed(Duration(seconds: 2), () {
+        if (_controller.value.isPlaying) {
+          _controller.pause();
+          setState(() => _isPlaying = false);
+        }
+      });
     }
   }
 
-  void _togglePlayPause1() {
-    if (_controller1.value.isPlaying) {
-      _controller1.pause();
+  void _togglePlayPauseBody() {
+    _controllerBody.setPlaybackSpeed(1);
+    if (_controllerBody.value.isPlaying) {
+      _controllerBody.pause();
       setState(() => _isPlaying = false);
     } else {
-      _controller1.seekTo(Duration.zero);
-      _controller1.play();
+      _controllerBody.seekTo(Duration.zero);
+      _controllerBody.play();
       setState(() => _isPlaying = true);
-    }
-  }
 
-  void _togglePlayPause2() {
-    if (_controller2.value.isPlaying) {
-      _controller2.pause();
-      setState(() => _isPlaying = false);
-    } else {
-      _controller2.seekTo(Duration.zero);
-      _controller2.play();
-      setState(() => _isPlaying = true);
+      Future.delayed(Duration(seconds: 1), () {
+        if (_controllerBody.value.isPlaying) {
+          _controllerBody.pause();
+          setState(() => _isPlaying = false);
+        }
+      });
     }
   }
 
   void _togglePlayPause3() {
+    _controller3.setPlaybackSpeed(1.5);
     if (_controller3.value.isPlaying) {
       _controller3.pause();
       setState(() => _isPlaying = false);
@@ -149,7 +236,30 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
       _controller3.seekTo(Duration.zero);
       _controller3.play();
       setState(() => _isPlaying = true);
+
+      Future.delayed(Duration(seconds: 2), () {
+        if (_controller3.value.isPlaying) {
+          _controller3.pause();
+          setState(() => _isPlaying = false);
+        }
+      });
     }
+  }
+
+  void _triggerClapBody() {
+    _clapControllerBody.forward();
+    _togglePlayPauseBody();
+    setState(() {
+      ballScaleBody = 0.80;
+      ballSkewBody = 0.15;
+    });
+
+    Future.delayed(const Duration(milliseconds: 100), () {
+      setState(() {
+        ballScaleBody = 1.0;
+        ballSkewBody = 0.0;
+      });
+    });
   }
 
   void _triggerClap() {
@@ -170,10 +280,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
 
   void _triggerClap1() {
     _clapController2.forward();
-    // _togglePlayPause();
     _togglePlayPause3();
-    // _togglePlayPause2();
-    // _togglePlayPause3();
     setState(() {
       ballScale1 = 0.80;
       ballSkew1 = 0.15;
@@ -190,8 +297,11 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   @override
   void dispose() {
     _controller.dispose();
-
+    _controller3.dispose();
+    _controllerBody.dispose();
+    _clapController2.dispose();
     _clapController.dispose();
+    _clapControllerBody.dispose();
     super.dispose();
   }
 
@@ -199,14 +309,14 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final screenWidth = constraints.maxWidth;
-                print(screenWidth.toString());
-                return Container(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final screenWidth = constraints.maxWidth;
+          return SingleChildScrollView(
+            controller: _scrollControllerSC,
+            child: Column(
+              children: [
+                Container(
                   height:
                       screenWidth < 800
                           ? screenWidth * 0.6 + 50
@@ -214,23 +324,51 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                   color: Color(0xFFFF69B4),
                   child: Column(
                     children: [
-                      // SizedBox(height: 50,),
                       Expanded(
                         child: Stack(
                           children: [
-                            Icon(Icons.star, color: Colors.white, size: 16)
-,
-                            Container(
-                              margin: EdgeInsets.only(
-                                top: 50,
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Transform.translate(
+                                  offset: const Offset(2, 2),
+                                  child: SizedBox.expand(
+                                    child: Image.asset(
+                                      'assets/background.png',
+                                      color: Colors.black.withOpacity(0.3),
+                                      fit: BoxFit.cover,
+                                      // "тень"
+                                    ),
+                                  ),
+                                ),
+                                Opacity(
+                                  opacity: 0.9,
+                                  child: SizedBox.expand(
+                                    child: Image.asset(
+                                      'assets/background.png',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: ScrollDownArrow(
+                                scrollController: _scrollControllerSC,
                               ),
+                            ),
+
+                            Container(
+                              margin: EdgeInsets.only(top: 50),
                               width: screenWidth / 0.25,
                               alignment: Alignment.topCenter,
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [
                                   Transform.translate(
-                                    offset: const Offset(2, 4), // Смещение тени
+                                    offset: const Offset(2, 4),
+                                    // Смещение тени
                                     child: Image.asset(
                                       'assets/title.png',
                                       color: Colors.black.withOpacity(
@@ -283,7 +421,11 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                     ),
                                   ),
                                   Positioned(
-                                    // right: screenWidth * 0.001,
+                                    right: screenWidth * 0.0001,
+                                    top:
+                                        screenWidth < 800
+                                            ? screenWidth * 0.08
+                                            : screenWidth * 0.08,
                                     child: AnimatedBuilder(
                                       animation: _arcAnimation1,
                                       builder: (context, child) {
@@ -293,25 +435,17 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                               pi / -360,
                                               _arcAnimation1.value,
                                             )!;
-                                        return Positioned(
-                                          right: screenWidth * 0.0001,
-
-                                          top:
-                                              screenWidth < 800
-                                                  ? screenWidth * 0.15
-                                                  : screenWidth * 0.10,
-                                          child: GestureDetector(
-                                            onTap: _triggerClap1,
-                                            child: Transform.rotate(
-                                              angle: angle + pi / 700,
-                                              child: SizedBox(
-                                                width:
-                                                    screenWidth < 800
-                                                        ? screenWidth * 0.25
-                                                        : screenWidth * 0.25,
-                                                child: Image.asset(
-                                                  'assets/hand3.png',
-                                                ),
+                                        return GestureDetector(
+                                          onTap: _triggerClap1,
+                                          child: Transform.rotate(
+                                            angle: angle + pi / 700,
+                                            child: SizedBox(
+                                              width:
+                                                  screenWidth < 800
+                                                      ? screenWidth * 0.20
+                                                      : screenWidth * 0.20,
+                                              child: Image.asset(
+                                                'assets/hand3.png',
                                               ),
                                             ),
                                           ),
@@ -322,9 +456,10 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                 ],
                               ),
                             ),
-                            const Positioned(
-                              top: 30,
-                              child: ClapLabelBubble()
+                            Container(
+                              alignment: Alignment.topCenter,
+                              padding: EdgeInsets.only(top: 20),
+                              child: ClapLabelBubble(screenWidth: screenWidth),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 16),
@@ -371,6 +506,10 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                     ),
                                   ),
                                   Positioned(
+                                    top:
+                                        screenWidth < 800
+                                            ? screenWidth * 0.35
+                                            : screenWidth * 0.30,
                                     left:
                                         screenWidth < 800
                                             ? screenWidth * 0.0010
@@ -384,23 +523,17 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                               pi / -360,
                                               _arcAnimation.value,
                                             )!;
-                                        return Positioned(
-                                          top:
-                                              screenWidth < 800
-                                                  ? screenWidth * 0.35
-                                                  : screenWidth * 0.30,
-                                          child: GestureDetector(
-                                            onTap: _triggerClap,
-                                            child: Transform.rotate(
-                                              angle: angle + pi / 700,
-                                              child: SizedBox(
-                                                width:
-                                                    screenWidth < 800
-                                                        ? screenWidth * 0.25
-                                                        : screenWidth * 0.25,
-                                                child: Image.asset(
-                                                  'assets/hand2.png',
-                                                ),
+                                        return GestureDetector(
+                                          onTap: _triggerClap,
+                                          child: Transform.rotate(
+                                            angle: angle + pi / 700,
+                                            child: SizedBox(
+                                              width:
+                                                  screenWidth < 800
+                                                      ? screenWidth * 0.25
+                                                      : screenWidth * 0.25,
+                                              child: Image.asset(
+                                                'assets/hand2.png',
                                               ),
                                             ),
                                           ),
@@ -414,7 +547,8 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                           ],
                         ),
                       ),
-                                      Container(
+
+                      Container(
                         margin: EdgeInsets.all(8),
                         padding: EdgeInsets.symmetric(horizontal: 8),
 
@@ -428,9 +562,12 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                           children: [
                             SelectableText(
                               "Bz7vVzQhm2KMW1XgcrDruYega1MiwrAs1DQysrx4tFkp",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 16,
+                                fontSize:
+                                    screenWidth < 800
+                                        ? screenWidth / 40
+                                        : screenWidth / 30,
                               ),
                             ),
                             IconButton(
@@ -455,91 +592,222 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                       ),
                     ],
                   ),
-                );
-              },
-            ),
-
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 40),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "🔥 Welcome to ClapOnSol!",
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    "This is a fun Web3-style concept where you can clap objects on Solana 😄.",
-                    style: TextStyle(fontSize: 18),
-                  ),
-
-                  Container(
-                    height: 500,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF1A1A1A),
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF00FF9D).withOpacity(0.1),
-                          spreadRadius: 5,
-                          blurRadius: 15,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
-                    ),
-                    child: const DexScreenerChart(),
-                  ),
-                ],
-              ),
-            ).animate().fadeIn().slideY(begin: 0.2, end: 0),
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.9),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.5),
-                      blurRadius: 10,
-                      spreadRadius: 5,
-                    ),
-                  ],
                 ),
-                child: Center(
-                  child: Wrap(
-                    spacing: 30,
-                    runSpacing: 20,
-                    alignment: WrapAlignment.center,
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 60,
+                    horizontal: 40,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildSocialButton(
-                        'X (Twitter)',
-                        'https://twitter.com/wapcoin',
-                        const Color(0xFF1DA1F2),
-                        '𝕏',
+                      Text(
+                        "🔥 Welcome to ClapOnSol!",
+                        style: TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
                       ),
-                      _buildSocialButton(
-                        'Telegram',
-                        'https://t.me/wapcoin',
-                        const Color(0xFF0088CC),
-                        '✈️',
+                      SizedBox(height: 24),
+                      Text(
+                        "Dive into the wild world of Web3 fun on Solana! 🌊",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black87,
+                        ),
                       ),
-                      _buildSocialButton(
-                        'DexScreener',
-                        'https://dexscreener.com/solana/8pr4PXNzG8KcgzAkf5tebuPh1ct9ke5eC6VCd3PngutC',
-                        const Color(0xFF00FF9D),
-                        '📊',
+                      SizedBox(height: 16),
+                      Text(
+                        "Here, clapping isn’t just for applause — it’s a way of life. 😄",
+                        style: TextStyle(fontSize: 18, color: Colors.black87),
+                      ),
+                      SizedBox(height: 16),
+                      Text(
+                        "👋 Tap the magic hand, slap the objects, and start stacking \$CLAP — our meme-powered token built for the true Solana degens.",
+                        style: TextStyle(fontSize: 18, color: Colors.black87),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        "🚀 How it works:",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      SizedBox(height: 150,
+                        child: Row(
+                          children: [
+                            Text(
+                              "👉 Tap the hand\n👉 Clap the objects\n👉 Earn \$CLAP tokens\n👉 Repeat and have fun 🎉",
+                              style: TextStyle(
+                                fontSize: 16,
+                                height: 1.5,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            Stack(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(left: screenWidth * 0.10),
+
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: AnimatedContainer(
+                                      duration: Duration(milliseconds: 500),
+                                      width:
+                                          screenWidth < 800
+                                              ? screenWidth * 0.25
+                                              : screenWidth * 0.20,
+                                      transform: Matrix4.skewX(ballSkewBody)
+                                        ..scale(ballScaleBody),
+                                      decoration: BoxDecoration(
+                                        // shape: BoxShape.circle,
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.5),
+                                            blurRadius: 10,
+                                            spreadRadius: 4,
+                                          ),
+                                        ],
+                                      ),
+                                      child: AnimatedSwitcher(
+                                        duration: Duration(milliseconds: 100),
+                                        child: AspectRatio(
+                                          aspectRatio:
+                                              _controllerBody.value.aspectRatio,
+                                          child: VideoPlayer(_controllerBody),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: screenWidth * 0.01,top: screenWidth * 0.07),
+                                  height:  screenWidth < 800
+                                      ? screenWidth * 0.25
+                                      : screenWidth * 0.20,
+
+                                  child: AnimatedBuilder(
+                                    animation: _arcAnimationBody,
+                                    builder: (context, child) {
+                                      final angle =
+                                      lerpDouble(
+                                        3 * pi / 190.0,
+                                        pi / -360,
+                                        _arcAnimationBody.value,
+                                      )!;
+                                      return GestureDetector(
+                                        onTap: _triggerClapBody,
+                                        child: Transform.rotate(
+                                          angle: angle + pi / 700,
+                                          child: SizedBox(
+                                            width:
+                                            screenWidth < 800
+                                                ? screenWidth * 0.25
+                                                : screenWidth * 0.30,
+                                            child: Image.asset('assets/hand2.png'),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+
+                              ],
+                            ),
+
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 24),
+                      Text(
+                        "Are you ready to clap your way to the top? 💥",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black87,
+                        ),
+                      ),
+
+                      Text(
+                        'Whether you\'re here to have fun or farm some digital chaos, this is the place to let your inner degen high-five the blockchain',
+                      ),
+                      Text(' Let’s clap it out!'),
+                      SizedBox(height: 26),
+                      Container(
+                        height: 500,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1A1A1A),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFF00FF9D).withOpacity(0.1),
+                              spreadRadius: 5,
+                              blurRadius: 15,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: const DexScreenerChart(),
                       ),
                     ],
                   ),
+                ).animate().fadeIn().slideY(begin: 0.2, end: 0),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.9),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          blurRadius: 10,
+                          spreadRadius: 5,
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Wrap(
+                        spacing: 30,
+                        runSpacing: 20,
+                        alignment: WrapAlignment.center,
+                        children: [
+                          _buildSocialButton(
+                            'X (Twitter)',
+                            'https://x.com/claponsolx',
+                            const Color(0xFF1DA1F2),
+                            '𝕏',
+                          ),
+                          _buildSocialButton(
+                            'Telegram',
+                            'https://t.me/wapcoin',
+                            const Color(0xFF0088CC),
+                            '✈️',
+                          ),
+                          _buildSocialButton(
+                            'DexScreener',
+                            'https://dexscreener.com/solana/8pr4PXNzG8KcgzAkf5tebuPh1ct9ke5eC6VCd3PngutC',
+                            const Color(0xFF00FF9D),
+                            '📊',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -556,10 +824,7 @@ Widget _buildSocialButton(String label, String url, Color color, String icon) {
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.pinkAccent.withOpacity(0.8),
-              Colors.pink.withOpacity(0.6),
-            ],
+            colors: [Colors.pinkAccent.withOpacity(0.8), Color(0xFFFF69B4)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -579,16 +844,26 @@ Widget _buildSocialButton(String label, String url, Color color, String icon) {
           children: [
             Text(
               icon,
-              style: const TextStyle(fontSize: 26, color: Colors.white),
+              style: GoogleFonts.fredoka(
+                textStyle: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                  letterSpacing: 1,
+                ),
+              ),
+              // const TextStyle(fontSize: 26, color: Colors.white),
             ),
             const SizedBox(width: 12),
             Text(
               label,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-                letterSpacing: 1.1,
+              style: GoogleFonts.fredoka(
+                textStyle: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                  letterSpacing: 1,
+                ),
               ),
             ),
           ],
@@ -596,14 +871,6 @@ Widget _buildSocialButton(String label, String url, Color color, String icon) {
       ),
     ),
   );
-  //     .animate(
-  //   onPlay: (controller) => controller.repeat(),
-  // )
-  //     .fadeIn()
-  //     .scale(delay: 200.ms)
-  //     .shimmer(duration: 2000.ms)
-  //     .then()
-  //     .shimmer(duration: 2000.ms);
 }
 
 class DexScreenerChart extends StatefulWidget {
@@ -680,37 +947,91 @@ class _DexScreenerChartState extends State<DexScreenerChart> {
   }
 }
 
-class ClapLabelBubble extends StatelessWidget {
-  const ClapLabelBubble({super.key});
+class ClapLabelBubble extends StatefulWidget {
+  final double screenWidth;
+
+  const ClapLabelBubble({super.key, required this.screenWidth});
+
+  @override
+  State<ClapLabelBubble> createState() => _ClapLabelBubbleState();
+}
+
+class _ClapLabelBubbleState extends State<ClapLabelBubble>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _shakeAnimation;
+  final Random _random = Random();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+
+    _shakeAnimation = Tween<double>(
+      begin: -6,
+      end: 6,
+    ).chain(CurveTween(curve: Curves.elasticIn)).animate(_controller);
+
+    _startShakingLoop();
+  }
+
+  void _startShakingLoop() async {
+    while (mounted) {
+      await Future.delayed(
+        Duration(seconds: 3 + _random.nextInt(5)),
+      ); // задержка 4-8 сек
+      if (!mounted) break;
+      _controller.forward(from: 0);
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-      decoration: BoxDecoration(
-        color: Colors.amber[400], // желтый фон
-        borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.orange.withOpacity(0.4),
-            blurRadius: 10,
-            offset: const Offset(2, 4),
+    return AnimatedBuilder(
+      animation: _shakeAnimation,
+      builder: (context, child) {
+        double offsetX = sin(_shakeAnimation.value) * 4;
+        return Transform.translate(offset: Offset(offsetX, 0), child: child);
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.amber[400],
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.orange.withOpacity(0.4),
+              blurRadius: 10,
+              offset: const Offset(2, 4),
+            ),
+          ],
+        ),
+        child: Text(
+          'Tap the hands',
+          style: GoogleFonts.fredoka(
+            textStyle: TextStyle(
+              fontSize: widget.screenWidth / 40,
+              fontWeight: FontWeight.w900,
+              color: Colors.pinkAccent,
+              letterSpacing: 1,
+            ),
           ),
-        ],
+        ),
       ),
-      child:  Text(
-        'Tap the hands',
-        style: GoogleFonts.fredoka(
-    textStyle: const TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.w900,
-    color: Colors.pinkAccent,
-    letterSpacing: 1,
-    ),
-        ) ),
     );
   }
 }
+
 class CurvedBadge extends StatelessWidget {
   final String text;
 
@@ -728,10 +1049,7 @@ class CurvedBadge extends StatelessWidget {
             offset: const Offset(0, 20),
             child: Text(
               text,
-              style: GoogleFonts.luckiestGuy(
-                fontSize: 22,
-                color: Colors.pink,
-              ),
+              style: GoogleFonts.luckiestGuy(fontSize: 22, color: Colors.pink),
             ),
           ),
         ),
@@ -743,16 +1061,27 @@ class CurvedBadge extends StatelessWidget {
 class CurvedContainerPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = const Color(0xFFFFCC5C)
-      ..style = PaintingStyle.fill;
+    final paint =
+        Paint()
+          ..color = const Color(0xFFFFCC5C)
+          ..style = PaintingStyle.fill;
 
     final path = Path();
 
     final curveHeight = 30.0;
     path.moveTo(0, size.height * 0.5);
-    path.quadraticBezierTo(size.width / 2, 0 - curveHeight, size.width, size.height * 0.5);
-    path.quadraticBezierTo(size.width / 2, size.height + curveHeight, 0, size.height * 0.5);
+    path.quadraticBezierTo(
+      size.width / 2,
+      0 - curveHeight,
+      size.width,
+      size.height * 0.5,
+    );
+    path.quadraticBezierTo(
+      size.width / 2,
+      size.height + curveHeight,
+      0,
+      size.height * 0.5,
+    );
     path.close();
 
     canvas.drawPath(path, paint);
@@ -760,4 +1089,63 @@ class CurvedContainerPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
+class ScrollDownArrow extends StatefulWidget {
+  final ScrollController scrollController;
+
+  const ScrollDownArrow({super.key, required this.scrollController});
+
+  @override
+  State<ScrollDownArrow> createState() => _ScrollDownArrowState();
+}
+
+class _ScrollDownArrowState extends State<ScrollDownArrow>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _animation = Tween<Offset>(
+      begin: Offset(0, 0),
+      end: Offset(0, 0.2),
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _scrollDown() {
+    widget.scrollController.animateTo(
+      widget.scrollController.offset + 300, // сколько прокрутить (в пикселях)
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _scrollDown,
+      child: SlideTransition(
+        position: _animation,
+        child: Icon(
+          Icons.keyboard_arrow_down_rounded,
+          color: Colors.white,
+          size: 50,
+        ),
+      ),
+    );
+  }
 }

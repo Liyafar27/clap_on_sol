@@ -67,8 +67,10 @@ flutter:
 
   assets:
     - assets/hand3.png
+    - assets/background.png
     - assets/hand2.png
     - assets/slap2.gif
+    - assets/slap.gif
     - assets/slap.mp4
     - assets/slap1.mp4
     - assets/slap2.mp4
