@@ -37580,6 +37580,7 @@ r.l()
 r=s.f
 r===$&&A.a()
 r.l()
+s.as.l()
 s.WS()},
 N(b1){var s,r,q,p,o,n,m,l,k,j,i,h,g,f=this,e=null,d="assets/background.png",c="assets/title.png",b=A.bR(b1,e,t.w).w.a.a,a=f.as,a0=b<800,a1=a0?b*0.6+50:b*0.5+50,a2=A.aY(4294928820),a3=t.W,a4=A.hV(B.Z,A.b([A.Kl(A.aqy(A.jF(d,A.aQ(B.c.al(76.5),B.l.D()>>>16&255,B.l.D()>>>8&255,B.l.D()&255),B.hh)),B.GG),A.al8(A.aqy(A.jF(d,e,B.hh)),0.9)],a3),B.N,B.aY),a5=A.eL(B.h9,A.hV(B.Z,A.b([A.Kl(A.jF(c,A.aQ(B.c.al(178.5),B.l.D()>>>16&255,B.l.D()>>>8&255,B.l.D()&255),e),B.iE),A.jF(c,e,e)],a3),B.N,B.aY),B.v,e,e,e,e,e,new A.aP(0,50,0,0),e,e,e,b/0.25),a6=b*0.1,a7=A.ij(20),a8=A.bQ(0,500,0),a9=a0?b*0.2:b*0.15,b0=A.al_(f.cx)
 b0.aS(0,f.CW)
