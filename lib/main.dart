@@ -82,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
     _controller3.setLooping(true);
 
     // Navigate to next screen after a delay
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 1), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
