@@ -101,8 +101,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFFF69B4),
       body: Center(
-        child: _videosReady
-            ? Column(
+        child:  Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
@@ -132,10 +131,10 @@ class _SplashScreenState extends State<SplashScreen> {
             const SizedBox(height: 20),
             const CircularProgressIndicator(color: Colors.white),
             const SizedBox(height: 20),
-            const Text('Loading videos...'),
+            _videosReady
+                ? Text('Loading videos...'):Text('Processing...'),
           ],
         )
-            : const CircularProgressIndicator(color: Colors.white),
       ),
     );
   }
