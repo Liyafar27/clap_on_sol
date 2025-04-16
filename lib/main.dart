@@ -38,7 +38,16 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     _initVideos();
   }
-
+  Future<void> _prewarm(VideoPlayerController controller) async {
+    try {
+      await controller.play();
+      await Future.delayed(Duration(milliseconds: 100));
+      await controller.pause();
+      await controller.seekTo(Duration.zero); // возвращаем в начало
+    } catch (e) {
+      print('Ошибка при prewarm: $e');
+    }
+  }
   Future<void> _initVideos() async {
     _controller = VideoPlayerController.asset('assets/slap.mp4');
     _controllerBody = VideoPlayerController.asset('assets/slap1.mp4');
@@ -49,6 +58,11 @@ class _SplashScreenState extends State<SplashScreen> {
       _controllerBody.initialize(),
       _controller3.initialize(),
     ]);
+
+    await _prewarm(_controller);
+    await _prewarm(_controllerBody);
+    await _prewarm(_controller3);
+
     _controller.setLooping(true);
     _controllerBody.setLooping(true);
     _controller3.setLooping(true);
