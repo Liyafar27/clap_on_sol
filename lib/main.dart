@@ -401,7 +401,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                         screenWidth < 800
                                             ? screenWidth * 0.01
                                             : screenWidth * 0.01,
-                                left: screenWidth - screenWidth * 0.1 - (screenWidth * 0.20),
+                                left: screenWidth - screenWidth * 0.1 - (screenWidth * 0.15),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: AnimatedContainer(
@@ -439,7 +439,10 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                   )
                                 ,
                               Positioned(
-                                right: screenWidth * 0.0001,
+                                left:        screenWidth < 800
+                                  ?screenWidth - screenWidth * 0.0001 - (screenWidth * 0.15):screenWidth - screenWidth * 0.0001 - (screenWidth * 0.20),
+
+                                // right: screenWidth * 0.0001,
                                 top:
                                     screenWidth < 800
                                         ? screenWidth * 0.08
@@ -472,7 +475,8 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                 ),
                               ),
                               Positioned(
-                                right: screenWidth * 0.1,
+                                left:        screenWidth < 800
+                                    ?screenWidth - screenWidth * 0.01 - (screenWidth * 0.10):screenWidth - screenWidth * 0.01 - (screenWidth * 0.15),
                                 top:
                                     screenWidth < 800
                                         ? screenWidth * 0.18
@@ -646,7 +650,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                     style: TextStyle(
                       fontSize:
                           screenWidth < 800
-                              ? screenWidth * 0.033
+                              ? screenWidth * 0.05
                               : screenWidth * 0.023,
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
@@ -658,7 +662,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                     style: TextStyle(
                       fontSize:
                           screenWidth < 800
-                              ? screenWidth * 0.031
+                              ? screenWidth * 0.04
                               : screenWidth * 0.021,
                       fontWeight: FontWeight.w500,
                       color: Colors.black87,
@@ -670,7 +674,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                     style: TextStyle(
                       fontSize:
                           screenWidth < 800
-                              ? screenWidth * 0.03
+                              ? screenWidth * 0.04
                               : screenWidth * 0.02,
                       color: Colors.black87,
                     ),
@@ -681,7 +685,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                     style: TextStyle(
                       fontSize:
                           screenWidth < 800
-                              ? screenWidth * 0.03
+                              ? screenWidth * 0.04
                               : screenWidth * 0.02,
                       color: Colors.black87,
                     ),
@@ -692,7 +696,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                     style: TextStyle(
                       fontSize:
                           screenWidth < 800
-                              ? screenWidth * 0.031
+                              ? screenWidth * 0.04
                               : screenWidth * 0.021,
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
@@ -720,7 +724,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                 style: TextStyle(
                                   fontSize:
                                       screenWidth < 800
-                                          ? screenWidth * 0.03
+                                          ? screenWidth * 0.04
                                           : screenWidth * 0.02,
                                 ),
                               ),
@@ -729,7 +733,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                 style: TextStyle(
                                   fontSize:
                                       screenWidth < 800
-                                          ? screenWidth * 0.03
+                                          ? screenWidth * 0.04
                                           : screenWidth * 0.02,
                                 ),
                               ),
@@ -738,7 +742,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                 style: TextStyle(
                                   fontSize:
                                       screenWidth < 800
-                                          ? screenWidth * 0.03
+                                          ? screenWidth * 0.04
                                           : screenWidth * 0.02,
                                   decoration: TextDecoration.lineThrough,
                                 ),
@@ -748,7 +752,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                 style: TextStyle(
                                   fontSize:
                                       screenWidth < 800
-                                          ? screenWidth * 0.03
+                                          ? screenWidth * 0.04
                                           : screenWidth * 0.02,
                                   fontStyle: FontStyle.italic,
                                   color: Colors.grey,
@@ -759,7 +763,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                 style: TextStyle(
                                   fontSize:
                                       screenWidth < 800
-                                          ? screenWidth * 0.03
+                                          ? screenWidth * 0.04
                                           : screenWidth * 0.02,
                                 ),
                               ),
@@ -869,7 +873,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                       fontWeight: FontWeight.w600,
                       fontSize:
                           screenWidth < 800
-                              ? screenWidth * 0.03
+                              ? screenWidth * 0.04
                               : screenWidth * 0.02,
                     ),
                   ),
@@ -881,7 +885,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                     style: TextStyle(
                       fontSize:
                           screenWidth < 800
-                              ? screenWidth * 0.03
+                              ? screenWidth * 0.04
                               : screenWidth * 0.02,
                     ),
                   ),
@@ -892,7 +896,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                     style: TextStyle(
                       fontSize:
                           screenWidth < 800
-                              ? screenWidth * 0.032
+                              ? screenWidth * 0.045
                               : screenWidth * 0.022,
                       decoration: TextDecoration.overline,
                     ),
