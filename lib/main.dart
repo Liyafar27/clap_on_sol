@@ -122,7 +122,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   double ballSkew1 = 0;
   double ballScaleBody = 1;
   double ballSkewBody = 0;
-
   Future<void> _initAllVideos() async {
     await _controller.initialize();
     await _controllerBody.initialize();
@@ -132,25 +131,22 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
 
     // 🔄 Быстрое проигрывание и пауза
     _controller.setLooping(false);
-    _controller3.setLooping(false);
-
     _controller.play();
-    _controller3.play();
-
     await Future.delayed(Duration(milliseconds: 1500));
     _controller.pause();
-    _controller3.pause();
-
     _controller.seekTo(Duration.zero);
-
-    // await Future.delayed(Duration(milliseconds:1500));
-    _controller3.seekTo(Duration.zero);
 
     _controllerBody.setLooping(false);
     _controllerBody.play();
     await Future.delayed(Duration(milliseconds: 1500));
     _controllerBody.pause();
     _controllerBody.seekTo(Duration.zero);
+
+    _controller3.setLooping(false);
+    _controller3.play();
+    await Future.delayed(Duration(milliseconds:1500));
+    _controller3.pause();
+    _controller3.seekTo(Duration.zero);
   }
   @override
   void initState() {
@@ -214,6 +210,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
 
   void _togglePlayPause() {
     _controller.setPlaybackSpeed(0.8);
+_controller.setLooping(true);
     if (_controller.value.isPlaying) {
       _controller.pause();
       setState(() => _isPlaying = false);
@@ -222,7 +219,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
       _controller.play();
       setState(() => _isPlaying = true);
 
-      Future.delayed(Duration(seconds: 3), () {
+      Future.delayed(Duration(milliseconds: 1300), () {
         if (_controller.value.isPlaying) {
           _controller.pause();
           setState(() => _isPlaying = false);
@@ -233,6 +230,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
 
   void _togglePlayPauseBody() {
     _controllerBody.setPlaybackSpeed(1);
+    _controllerBody.setLooping(true);
     if (_controllerBody.value.isPlaying) {
       _controllerBody.pause();
       setState(() => _isPlayingBody = false);
@@ -241,7 +239,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
       _controllerBody.play();
       setState(() => _isPlayingBody = true);
 
-      Future.delayed(Duration(seconds: 3), () {
+      Future.delayed(Duration(milliseconds: 900), () {
         if (_controllerBody.value.isPlaying) {
           _controllerBody.pause();
           setState(() => _isPlayingBody = false);
@@ -251,7 +249,9 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   }
 
   void _togglePlayPause3() {
-    _controller3.setPlaybackSpeed(1);
+    _controller3.setPlaybackSpeed(1.5);
+    _controller3.setLooping(true);
+
     if (_controller3.value.isPlaying) {
       _controller3.pause();
       setState(() => _isPlaying2 = false);
@@ -260,7 +260,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
       _controller3.play();
       setState(() => _isPlaying2 = true);
 
-      Future.delayed(Duration(seconds: 3), () {
+      Future.delayed(Duration(milliseconds: 1300), () {
         if (_controller3.value.isPlaying) {
           _controller3.pause();
           setState(() => _isPlaying2 = false);
@@ -1065,84 +1065,34 @@ class _DexScreenerChartState extends State<DexScreenerChart> {
   }
 }
 
-class ClapLabelBubble extends StatefulWidget {
+class ClapLabelBubble extends StatelessWidget {
   final double screenWidth;
 
   const ClapLabelBubble({super.key, required this.screenWidth});
 
   @override
-  State<ClapLabelBubble> createState() => _ClapLabelBubbleState();
-}
-
-class _ClapLabelBubbleState extends State<ClapLabelBubble>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _shakeAnimation;
-  final Random _random = Random();
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 800),
-      vsync: this,
-    );
-
-    _shakeAnimation = Tween<double>(
-      begin: -6,
-      end: 6,
-    ).chain(CurveTween(curve: Curves.elasticIn)).animate(_controller);
-
-    _startShakingLoop();
-  }
-
-  void _startShakingLoop() async {
-    while (mounted) {
-      await Future.delayed(
-        Duration(seconds: 3 + _random.nextInt(5)),
-      ); // задержка 4-8 сек
-      if (!mounted) break;
-      _controller.forward(from: 0);
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _shakeAnimation,
-      builder: (context, child) {
-        double offsetX = sin(_shakeAnimation.value) * 4;
-        return Transform.translate(offset: Offset(offsetX, 0), child: child);
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-        decoration: BoxDecoration(
-          color: Colors.amber[400],
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.orange.withOpacity(0.4),
-              blurRadius: 10,
-              offset: const Offset(2, 4),
-            ),
-          ],
-        ),
-        child: Text(
-          'Tap the hands',
-          style: GoogleFonts.fredoka(
-            textStyle: TextStyle(
-              fontSize: widget.screenWidth / 40,
-              fontWeight: FontWeight.w900,
-              color: Colors.pinkAccent,
-              letterSpacing: 1,
-            ),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.amber[400],
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.orange.withOpacity(0.4),
+            blurRadius: 10,
+            offset: const Offset(2, 4),
+          ),
+        ],
+      ),
+      child: Text(
+        'Tap the hands',
+        style: GoogleFonts.fredoka(
+          textStyle: TextStyle(
+            fontSize: screenWidth / 40,
+            fontWeight: FontWeight.w900,
+            color: Colors.pinkAccent,
+            letterSpacing: 1,
           ),
         ),
       ),
