@@ -6,9 +6,10 @@ import 'dart:ui_web' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
+
+import 'ball_game.dart';
 
 void main() {
   runApp(MyApp());
@@ -468,6 +469,13 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                       },
                                     ),
                                   ),
+                                  Positioned(
+                                  right: screenWidth * 0.1,
+                                      top:
+                                      screenWidth < 800
+                                          ? screenWidth * 0.18
+                                          : screenWidth * 0.18,child: TapPulseEffect(size:screenWidth * 0.05,))
+
                                 ],
                               ),
                             ),
@@ -556,10 +564,22 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                       },
                                     ),
                                   ),
+                                  Positioned(  top:
+                                  screenWidth < 800
+                                      ? screenWidth * 0.45
+                                      : screenWidth * 0.40,
+                                      left:
+                                      screenWidth < 800
+                                          ? screenWidth * 0.15
+                                          : screenWidth * 0.15,child: TapPulseEffect(size:screenWidth * 0.05,))
                                 ],
                               ),
                             ),
-                          ],
+                            Container(
+                              alignment: Alignment.bottomCenter,
+                              padding: EdgeInsets.only(top: 20),
+                              child: ClapLabelBubble(screenWidth: screenWidth),
+                            ),],
                         ),
                       ),
 
@@ -618,7 +638,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "🔥 Welcome to ClapOnSol!",
+                        "🖐️ Welcome to ClapOnSol!",
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,
@@ -627,7 +647,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                       ),
                       SizedBox(height: 24),
                       Text(
-                        "Dive into the wild world of Web3 fun on Solana! 🌊",
+                        "Dive into the wild world of Web3 fun on Solana! 🔥",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
@@ -636,7 +656,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                       ),
                       SizedBox(height: 16),
                       Text(
-                        "Here, clapping isn’t just for applause — it’s a way of life. 😄",
+                        "Here, clapping isn’t just for applause — it’s a way of life. 🖐️🩷",
                         style: TextStyle(fontSize: 18, color: Colors.black87),
                       ),
                       SizedBox(height: 16),
@@ -653,19 +673,37 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                           color: Colors.black87,
                         ),
                       ),
-                      SizedBox(height: 10),
-
                       SizedBox(height: 150,
                         child: Row(
                           children: [
-                            Text(
-                              "👉 Tap the hand\n👉 Clap the objects\n👉 Earn \$CLAP tokens\n👉 Repeat and have fun 🎉",
-                              style: TextStyle(
-                                fontSize: 16,
-                                height: 1.5,
-                                color: Colors.black87,
+                            Text.rich(
+                              TextSpan(
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  height: 1.5,
+                                  color: Colors.black87,
+                                ),
+                                children: [
+                                  TextSpan(text: "👉 Tap the hand\n"),
+                                  TextSpan(text: "👉 Clap the 👋 'objects' 😏 \n"),
+                                  TextSpan(
+                                    text: "👉 Earn \$CLAP tokens\n",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: "    (in progress)\n",
+                                    style: TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  TextSpan(text: "👉 Repeat and have fun 😉"),
+                                ],
                               ),
                             ),
+
                             Stack(
                               children: [
                                 Container(
@@ -703,36 +741,50 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  padding: EdgeInsets.only(left: screenWidth * 0.01,top: screenWidth * 0.07),
-                                  height:  screenWidth < 800
-                                      ? screenWidth * 0.25
-                                      : screenWidth * 0.20,
+                                Stack(
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.only(left: screenWidth * 0.01,top: screenWidth * 0.07),
+                                      height:  screenWidth < 800
+                                          ? screenWidth * 0.25
+                                          : screenWidth * 0.20,
 
-                                  child: AnimatedBuilder(
-                                    animation: _arcAnimationBody,
-                                    builder: (context, child) {
-                                      final angle =
-                                      lerpDouble(
-                                        3 * pi / 190.0,
-                                        pi / -360,
-                                        _arcAnimationBody.value,
-                                      )!;
-                                      return GestureDetector(
-                                        onTap: _triggerClapBody,
-                                        child: Transform.rotate(
-                                          angle: angle + pi / 700,
-                                          child: SizedBox(
-                                            width:
-                                            screenWidth < 800
-                                                ? screenWidth * 0.25
-                                                : screenWidth * 0.30,
-                                            child: Image.asset('assets/hand2.png'),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
+                                      child: AnimatedBuilder(
+                                        animation: _arcAnimationBody,
+                                        builder: (context, child) {
+                                          final angle =
+                                          lerpDouble(
+                                            3 * pi / 190.0,
+                                            pi / -360,
+                                            _arcAnimationBody.value,
+                                          )!;
+                                          return GestureDetector(
+                                            onTap: _triggerClapBody,
+                                            child: Transform.rotate(
+                                              angle: angle + pi / 700,
+                                              child: SizedBox(
+                                                width:
+                                                screenWidth < 800
+                                                    ? screenWidth * 0.25
+                                                    : screenWidth * 0.30,
+                                                child: Image.asset('assets/hand2.png'),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    Positioned(
+                                        // top:
+                                    // screenWidth < 800
+                                    //     ? screenWidth * 0.45
+                                    //     : screenWidth * 0.40,
+                                    //     left:
+                                    //     screenWidth < 800
+                                    //         ? screenWidth * 0.15
+                                    //         : screenWidth * 0.15,
+                                        child: TapPulseEffect(size:screenWidth * 0.05,))
+                                  ],
                                 ),
 
                               ],
@@ -743,7 +795,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                       ),
                       SizedBox(height: 24),
                       Text(
-                        "Are you ready to clap your way to the top? 💥",
+                        "Ready to clap your way to the top? 👏🚀",
                         style: TextStyle(
                           fontSize: 18,
                           fontStyle: FontStyle.italic,
@@ -752,42 +804,50 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                       ),
 
                       Text(
-                        'Whether you\'re here to have fun or farm some digital chaos, this is the place to let your inner degen high-five the blockchain', style: TextStyle(
-                        fontSize: 16,
-                        height: 1.5,
-                        color: Colors.black87,
+                        "Whether you're here for laughs or to farm some digital chaos 💥, this is the place to let your inner degen high-five the blockchain ✋🧠",
+                        style: TextStyle(
+                          fontSize: 16,
+                          height: 1.5,
+                          color: Colors.black87,
+                        ),
                       ),
-                      ),
-                      Text(' Let’s clap it out!' ,
+
+                      Text(
+                        "Let’s clap it out! 👋",
                         style: TextStyle(
                           fontSize: 18,
                           fontStyle: FontStyle.italic,
                           color: Colors.black87,
                         ),
                       ),
-                      SizedBox(height: 26),
 
+                      SizedBox(height: 26),
                       Container(
-                        height: 500,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF1A1A1A),
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color(0xFF00FF9D).withOpacity(0.1),
-                              spreadRadius: 5,
-                              blurRadius: 15,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: const DexScreenerChart(),
-                      ),
+                        alignment: Alignment.center,
+                        width:screenWidth/2,
+                         height: screenWidth/1.9+200,child: BubbleGamePage(screenWidth:screenWidth.toInt())),
+                      // Container(
+                      //   height: 500,
+                      //   decoration: BoxDecoration(
+                      //     color: const Color(0xFF1A1A1A),
+                      //     borderRadius: BorderRadius.circular(20),
+                      //     boxShadow: [
+                      //       BoxShadow(
+                      //         color: const Color(0xFF00FF9D).withOpacity(0.1),
+                      //         spreadRadius: 5,
+                      //         blurRadius: 15,
+                      //         offset: const Offset(0, 3),
+                      //       ),
+                      //     ],
+                      //   ),
+                      //   child: const DexScreenerChart(),
+                      // ),
+                      SizedBox(height: 26),
                     ],
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.9),
                     boxShadow: [
@@ -845,14 +905,14 @@ Widget _buildSocialButton(String label, String url, Color color, String icon) {
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.pinkAccent.withOpacity(0.8), Color(0xFFFF69B4)],
+            colors: [Color(0xFFFF69B4).withOpacity(0.8), Color(0xFFFF69B4)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.pinkAccent.withOpacity(0.4),
+              color: Color(0xFFFF69B4).withOpacity(0.4),
               blurRadius: 20,
               spreadRadius: 2,
               offset: const Offset(0, 8),
@@ -1159,3 +1219,71 @@ class _ScrollDownArrowState extends State<ScrollDownArrow>
     );
   }
 }
+class TapPulseEffect extends StatefulWidget {
+  final double size;
+  const TapPulseEffect({super.key, this.size = 100});
+
+  @override
+  State<TapPulseEffect> createState() => _TapPulseEffectState();
+}
+
+class _TapPulseEffectState extends State<TapPulseEffect>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    )..repeat(); // бесконечная анимация
+
+    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      child: SizedBox(
+        width: widget.size,
+        height: widget.size,
+        child: AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) {
+            return Stack(
+              alignment: Alignment.center,
+              children: List.generate(3, (index) {
+                double progress = (_animation.value + index * 0.33) % 1.0;
+                double scale = 0.5 + progress;
+                double opacity = (1 - progress).clamp(0.0, 1.0);
+
+                return Opacity(
+                  opacity: opacity,
+                  child: Container(
+                    width: widget.size * scale,
+                    height: widget.size * scale,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.yellowAccent.withOpacity(0.3),
+                    ),
+                  ),
+                );
+              }),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+

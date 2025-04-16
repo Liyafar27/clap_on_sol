@@ -76,7 +76,21 @@ flutter:
     - assets/slap2.mp4
 
     - assets/title.png
-
+    - assets/ball_1.png
+    - assets/ball_2.png
+    - assets/ball_3.png
+    - assets/ball_4.png
+    - assets/ball_5.png
+    - assets/ball_6.png
+    - assets/ball_7.png
+    - assets/ball_8.png
+    - assets/ball_9.png
+    - assets/ball_10.png
+    - assets/ball_11.png
+    - assets/ball_12.png
+    - assets/ball_13.png
+    - assets/ball_14.png
+    - assets/ball_15.png
 
   #   - images/a_dot_ham.jpeg
 
