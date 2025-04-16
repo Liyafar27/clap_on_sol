@@ -38044,17 +38044,17 @@ r===$&&A.a()
 r.l()
 s.X0()},
 N(b2){var s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,c,b,a,a0,a1=this,a2=null,a3="assets/background.png",a4="assets/title.png",a5=A.bS(b2,a2,t.w).w.a.a,a6=a5<800,a7=a6?a5*0.6+50:a5*0.5+50,a8=A.aR(4294928820),a9=t.F,b0=A.f6(B.S,A.b([A.Kw(A.ari(A.hL(a3,A.aB(B.c.af(76.5),B.l.D()>>>16&255,B.l.D()>>>8&255,B.l.D()&255),B.ei,a2,a2)),B.GZ),A.a4i(A.ari(A.hL(a3,a2,B.ei,a2,a2)),0.9)],a9),B.F,B.aF),b1=A.du(B.he,A.f6(B.S,A.b([A.Kw(A.hL(a4,A.aB(B.c.af(178.5),B.l.D()>>>16&255,B.l.D()>>>8&255,B.l.D()&255),a2,a2,a2),B.iM),A.hL(a4,a2,a2,a2,a2)],a9),B.F,B.aF),B.u,a2,a2,a2,a2,a2,new A.aK(0,50,0,0),a2,a2,a2,a5/0.25)
-if(a1.ay){s=A.iq(20)
-r=A.bv(0,500,0)
-q=a6?a5*0.2:a5*0.15
-p=A.alH(a1.db)
-p.aS(0,a1.cy)
-o=A.b([new A.cH(4,B.b6,A.aB(B.c.af(127.5),B.l.D()>>>16&255,B.l.D()>>>8&255,B.l.D()&255),B.h,10)],t.V)
-n=A.bv(0,100,0)
-m=a1.Q
-m===$&&A.a()
-q=A.hb(a2,A.akS(s,A.akG(A.akH(new A.mP(J.akw(m.a),new A.fE(new A.oS(a1.Q,a2),a2),a2),n),new A.cS(B.k,a2,a2,a2,o,a2,B.ao),r,p,q)),a2,a2,a2,a5*0.1,a5*0.01,a2)
-s=q}else s=A.is(A.akP(a2),a2,a2)
+if(a1.ay){s=a5*0.2
+r=A.iq(20)
+q=A.bv(0,500,0)
+p=a6?s:a5*0.15
+o=A.alH(a1.db)
+o.aS(0,a1.cy)
+n=A.b([new A.cH(4,B.b6,A.aB(B.c.af(127.5),B.l.D()>>>16&255,B.l.D()>>>8&255,B.l.D()&255),B.h,10)],t.V)
+m=A.bv(0,100,0)
+l=a1.Q
+l===$&&A.a()
+s=A.hb(a2,A.akS(r,A.akG(A.akH(new A.mP(J.akw(l.a),new A.fE(new A.oS(a1.Q,a2),a2),a2),m),new A.cS(B.k,a2,a2,a2,n,a2,B.ao),q,o,p)),a2,a2,a5-a5*0.1-s,a2,a5*0.01,a2)}else s=A.is(A.akP(a2),a2,a2)
 r=a5*0.08
 q=a1.w
 q===$&&A.a()
