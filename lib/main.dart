@@ -88,7 +88,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-
 class ClapOnSolPage extends StatefulWidget {
   const ClapOnSolPage({super.key});
 
@@ -116,7 +115,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
 
   bool _isInitialized = false;
 
-
   bool isAnimating = false;
   double ballScale = 1;
   double ballSkew = 0;
@@ -132,7 +130,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
 
     setState(() {
       _isInitialized = true;
-
     }); // чтобы отобразились виджеты после инициализации
 
     // 🔄 Быстрое проигрывание и пауза
@@ -150,10 +147,11 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
 
     _controller3.setLooping(false);
     _controller3.play();
-    await Future.delayed(Duration(milliseconds:1500));
+    await Future.delayed(Duration(milliseconds: 1500));
     _controller3.pause();
     _controller3.seekTo(Duration.zero);
   }
+
   @override
   void initState() {
     super.initState();
@@ -216,7 +214,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
 
   void _togglePlayPause() {
     _controller.setPlaybackSpeed(0.8);
-_controller.setLooping(true);
+    _controller.setLooping(true);
     if (_controller.value.isPlaying) {
       _controller.pause();
       setState(() => _isPlaying = false);
@@ -336,88 +334,86 @@ _controller.setLooping(true);
 
   @override
   Widget build(BuildContext context) {
-
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
-      body:  SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  height:
-                      screenWidth < 800
-                          ? screenWidth * 0.6 + 50
-                          : screenWidth * 0.5 + 50,
-                  color: Color(0xFFFF69B4),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Stack(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height:
+                  screenWidth < 800
+                      ? screenWidth * 0.6 + 50
+                      : screenWidth * 0.5 + 50,
+              color: Color(0xFFFF69B4),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        Stack(
+                          alignment: Alignment.center,
                           children: [
-                            Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Transform.translate(
-                                  offset: const Offset(2, 2),
-                                  child: SizedBox.expand(
-                                    child: Image.asset(
-                                      'assets/background.png',
-                                      color: Colors.black.withOpacity(0.3),
-                                      fit: BoxFit.cover,
-                                      // "тень"
-                                    ),
-                                  ),
+                            Transform.translate(
+                              offset: const Offset(2, 2),
+                              child: SizedBox.expand(
+                                child: Image.asset(
+                                  'assets/background.png',
+                                  color: Colors.black.withOpacity(0.3),
+                                  fit: BoxFit.cover,
+                                  // "тень"
                                 ),
-                                Opacity(
-                                  opacity: 0.9,
-                                  child: SizedBox.expand(
-                                    child: Image.asset(
-                                      'assets/background.png',
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: ScrollDownArrow(
                               ),
                             ),
-
-                            Container(
-                              margin: EdgeInsets.only(top: 50),
-                              width: screenWidth / 0.25,
-                              alignment: Alignment.topCenter,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Transform.translate(
-                                    offset: const Offset(2, 4),
-                                    // Смещение тени
-                                    child: Image.asset(
-                                      'assets/title.png',
-                                      color: Colors.black.withOpacity(
-                                        0.7,
-                                      ), // "тень"
-                                    ),
-                                  ),
-                                  Image.asset('assets/title.png'),
-                                ],
+                            Opacity(
+                              opacity: 0.9,
+                              child: SizedBox.expand(
+                                child: Image.asset(
+                                  'assets/background.png',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
+                          ],
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: ScrollDownArrow(),
+                        ),
 
-                            Padding(
-                              padding: const EdgeInsets.only(top: 16),
-                              child: Stack(
-                                children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 50),
+                          width: screenWidth / 0.25,
+                          alignment: Alignment.topCenter,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Transform.translate(
+                                offset: const Offset(2, 4),
+                                // Смещение тени
+                                child: Image.asset(
+                                  'assets/title.png',
+                                  color: Colors.black.withOpacity(
+                                    0.7,
+                                  ), // "тень"
+                                ),
+                              ),
+                              Image.asset('assets/title.png'),
+                            ],
+                          ),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Stack(
+                            children: [
                               _isInitialized
-                              ?   Positioned(
+                                  ? Positioned(
                                     top:
-                                    screenWidth < 800
-                                        ? screenWidth * 0.01
-                                        : screenWidth * 0.01,
-                                    right: screenWidth * 0.1,
+                                        screenWidth < 800
+                                            ? screenWidth * 0.01
+                                            : screenWidth * 0.01,
+                                left: screenWidth - screenWidth * 0.1 - (screenWidth * 0.20),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: AnimatedContainer(
@@ -445,66 +441,70 @@ _controller.setLooping(true);
                                           child: AspectRatio(
                                             aspectRatio:
                                                 _controller3.value.aspectRatio,
-                                            child: RepaintBoundary(child: VideoPlayer(_controller3)),
+                                            child: RepaintBoundary(
+                                              child: VideoPlayer(_controller3),
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ): Center(child: CircularProgressIndicator()),
-                                  Positioned(
-                                    right: screenWidth * 0.0001,
-                                    top:
-                                        screenWidth < 800
-                                            ? screenWidth * 0.08
-                                            : screenWidth * 0.08,
-                                    child: AnimatedBuilder(
-                                      animation: _arcAnimation1,
-                                      builder: (context, child) {
-                                        final angle =
-                                            lerpDouble(
-                                              3 * pi / 190.0,
-                                              pi / -360,
-                                              _arcAnimation1.value,
-                                            )!;
-                                        return GestureDetector(
-                                          onTap: _triggerClap1,
-                                          child: Transform.rotate(
-                                            angle: angle + pi / 700,
-                                            child: SizedBox(
-                                              width:
-                                                  screenWidth < 800
-                                                      ? screenWidth * 0.20
-                                                      : screenWidth * 0.20,
-                                              child: Image.asset(
-                                                'assets/hand3.png',
-                                              ),
-                                            ),
+                                  )
+                                  : Center(child: CircularProgressIndicator()),
+                              Positioned(
+                                right: screenWidth * 0.0001,
+                                top:
+                                    screenWidth < 800
+                                        ? screenWidth * 0.08
+                                        : screenWidth * 0.08,
+                                child: AnimatedBuilder(
+                                  animation: _arcAnimation1,
+                                  builder: (context, child) {
+                                    final angle =
+                                        lerpDouble(
+                                          3 * pi / 190.0,
+                                          pi / -360,
+                                          _arcAnimation1.value,
+                                        )!;
+                                    return GestureDetector(
+                                      onTap: _triggerClap1,
+                                      child: Transform.rotate(
+                                        angle: angle + pi / 700,
+                                        child: SizedBox(
+                                          width:
+                                              screenWidth < 800
+                                                  ? screenWidth * 0.20
+                                                  : screenWidth * 0.20,
+                                          child: Image.asset(
+                                            'assets/hand3.png',
                                           ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  Positioned(
-                                  right: screenWidth * 0.1,
-                                      top:
-                                      screenWidth < 800
-                                          ? screenWidth * 0.18
-                                          : screenWidth * 0.18,child: TapPulseEffect(size:screenWidth * 0.05,))
-
-                                ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                            Container(
-                              alignment: Alignment.topCenter,
-                              padding: EdgeInsets.only(top: 20),
-                              child: ClapLabelBubble(screenWidth: screenWidth),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 16),
-                              child: Stack(
-                                children: [
+                              Positioned(
+                                right: screenWidth * 0.1,
+                                top:
+                                    screenWidth < 800
+                                        ? screenWidth * 0.18
+                                        : screenWidth * 0.18,
+                                child: TapPulseEffect(size: screenWidth * 0.05),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.topCenter,
+                          padding: EdgeInsets.only(top: 20),
+                          child: ClapLabelBubble(screenWidth: screenWidth),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Stack(
+                            children: [
                               _isInitialized
-                              ?    Positioned(
+                                  ? Positioned(
                                     top:
                                         screenWidth < 800
                                             ? screenWidth * 0.25
@@ -538,407 +538,449 @@ _controller.setLooping(true);
                                           child: AspectRatio(
                                             aspectRatio:
                                                 _controller.value.aspectRatio,
-                                            child: RepaintBoundary(child: VideoPlayer(_controller)),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ) : Center(child: CircularProgressIndicator()),
-                                  Positioned(
-                                    top:
-                                        screenWidth < 800
-                                            ? screenWidth * 0.35
-                                            : screenWidth * 0.30,
-                                    left:
-                                        screenWidth < 800
-                                            ? screenWidth * 0.0010
-                                            : screenWidth * 0.0010,
-                                    child: AnimatedBuilder(
-                                      animation: _arcAnimation,
-                                      builder: (context, child) {
-                                        final angle =
-                                            lerpDouble(
-                                              3 * pi / 190.0,
-                                              pi / -360,
-                                              _arcAnimation.value,
-                                            )!;
-                                        return GestureDetector(
-                                          onTap: _triggerClap,
-                                          child: Transform.rotate(
-                                            angle: angle + pi / 700,
-                                            child: SizedBox(
-                                              width:
-                                                  screenWidth < 800
-                                                      ? screenWidth * 0.25
-                                                      : screenWidth * 0.25,
-                                              child: Image.asset(
-                                                'assets/hand2.png',
-                                              ),
+                                            child: RepaintBoundary(
+                                              child: VideoPlayer(_controller),
                                             ),
                                           ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  Positioned(  top:
-                                  screenWidth < 800
-                                      ? screenWidth * 0.45
-                                      : screenWidth * 0.40,
-                                      left:
-                                      screenWidth < 800
-                                          ? screenWidth * 0.15
-                                          : screenWidth * 0.15,child: TapPulseEffect(size:screenWidth * 0.05,))
-                                ],
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.bottomCenter,
-                              padding: EdgeInsets.only(top: 20),
-                              child: ClapLabelBubble(screenWidth: screenWidth),
-                            ),],
-                        ),
-                      ),
-
-                      Container(
-                        margin: EdgeInsets.all(8),
-                        padding: EdgeInsets.symmetric(horizontal: 8),
-
-                        decoration: BoxDecoration(
-                          color: Colors.black38,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.white24),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SelectableText(
-                              "Bz7vVzQhm2KMW1XgcrDruYega1MiwrAs1DQysrx4tFkp",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize:
-                                    screenWidth < 800
-                                        ? screenWidth / 40
-                                        : screenWidth / 60,
-                              ),
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.copy,
-                                color: Colors.white70,
-                              ),
-                              onPressed: () {
-                                Clipboard.setData(
-                                  ClipboardData(
-                                    text:
-                                        'Bz7vVzQhm2KMW1XgcrDruYega1MiwrAs1DQysrx4tFkp',
-                                  ),
-                                );
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text("Copied!")),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 60,
-                    horizontal: 40,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "🖐️ Welcome to ClapOnSol!",
-                        style: TextStyle(
-                          fontSize: screenWidth < 800
-                              ? screenWidth * 0.033
-                              : screenWidth * 0.023,                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      SizedBox(height: 24),
-                      Text(
-                        "Dive into the wild world of Web3 fun on Solana! 🔥",
-                        style: TextStyle(
-                          fontSize: screenWidth < 800
-                              ? screenWidth * 0.031
-                              : screenWidth * 0.021,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      SizedBox(height: 16),
-                      Text(
-                        "Here, clapping isn’t just for applause — it’s a way of life. 🖐️🩷",
-                        style: TextStyle( fontSize: screenWidth < 800
-                            ? screenWidth * 0.03
-                            : screenWidth * 0.02, color: Colors.black87),
-                      ),
-                      SizedBox(height: 16),
-                      Text(
-                        "👋 Tap the magic hand, slap the objects, and start stacking \$CLAP — our meme-powered token built for the true Solana degens.",
-                        style: TextStyle( fontSize: screenWidth < 800
-                            ? screenWidth * 0.03
-                            : screenWidth * 0.02,color: Colors.black87),
-                      ),
-                      SizedBox(height: 20),
-                      Text(
-                        "🚀 How it works:",
-                        style: TextStyle(
-                          fontSize: screenWidth < 800
-                              ? screenWidth * 0.031
-                              : screenWidth * 0.021,                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      SizedBox(height: 6),
-
-                      SizedBox(height:  screenWidth * 0.25,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,  // Добавляем центрирование
-
-                          children: [
-                            Text.rich(
-                              TextSpan(
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  height: 1.5,
-                                  color: Colors.black87,
-                                ),
-                                children: [
-                                  TextSpan(text: "👉 Tap the hand\n",
-                                    style: TextStyle(
-                                      fontSize: screenWidth < 800
-                                          ? screenWidth * 0.03
-                                          : screenWidth * 0.02,
-                                    ),),
-                                  TextSpan(text: "👉 Clap the 👋 'objects' 😏 \n",
-                                    style: TextStyle(
-                                      fontSize: screenWidth < 800
-                                          ? screenWidth * 0.03
-                                          : screenWidth * 0.02,
-                                    ),),
-                                  TextSpan(
-                                    text: "👉 Earn \$CLAP tokens\n",
-                                    style: TextStyle(
-                                      fontSize: screenWidth < 800
-                                          ? screenWidth * 0.03
-                                          : screenWidth * 0.02,
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "    (in progress)\n",
-                                    style: TextStyle(
-                                      fontSize: screenWidth < 800
-                                          ? screenWidth * 0.03
-                                          : screenWidth * 0.02,
-                                      fontStyle: FontStyle.italic,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  TextSpan(text: "👉 Repeat and have fun 😉",style: TextStyle(
-                                    fontSize: screenWidth < 800
-                                        ? screenWidth * 0.03
-                                        : screenWidth * 0.02,
-                                  ),),
-                                ],
-                              ),
-                            ),
-
-                            Stack(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(left: screenWidth * 0.08),
-
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: AnimatedContainer(
-                                      duration: Duration(milliseconds: 500),
-                                      width:
-                                          screenWidth < 800
-                                              ? screenWidth * 0.25
-                                              : screenWidth * 0.20,
-                                      transform: Matrix4.skewX(ballSkewBody)
-                                        ..scale(ballScaleBody),
-                                      decoration: BoxDecoration(
-                                        // shape: BoxShape.circle,
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black.withOpacity(0.5),
-                                            blurRadius: 10,
-                                            spreadRadius: 4,
-                                          ),
-                                        ],
-                                      ),
-                                      child: AnimatedSwitcher(
-                                        duration: Duration(milliseconds: 100),
-                                        child: AspectRatio(
-                                          aspectRatio:
-                                              _controllerBody.value.aspectRatio,
-                                          child: RepaintBoundary(child: VideoPlayer(_controllerBody)),
                                         ),
                                       ),
                                     ),
+                                  )
+                                  : Center(child: CircularProgressIndicator()),
+                              Positioned(
+                                top:
+                                    screenWidth < 800
+                                        ? screenWidth * 0.35
+                                        : screenWidth * 0.30,
+                                left:
+                                    screenWidth < 800
+                                        ? screenWidth * 0.0010
+                                        : screenWidth * 0.0010,
+                                child: AnimatedBuilder(
+                                  animation: _arcAnimation,
+                                  builder: (context, child) {
+                                    final angle =
+                                        lerpDouble(
+                                          3 * pi / 190.0,
+                                          pi / -360,
+                                          _arcAnimation.value,
+                                        )!;
+                                    return GestureDetector(
+                                      onTap: _triggerClap,
+                                      child: Transform.rotate(
+                                        angle: angle + pi / 700,
+                                        child: SizedBox(
+                                          width:
+                                              screenWidth < 800
+                                                  ? screenWidth * 0.25
+                                                  : screenWidth * 0.25,
+                                          child: Image.asset(
+                                            'assets/hand2.png',
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Positioned(
+                                top:
+                                    screenWidth < 800
+                                        ? screenWidth * 0.45
+                                        : screenWidth * 0.40,
+                                left:
+                                    screenWidth < 800
+                                        ? screenWidth * 0.15
+                                        : screenWidth * 0.15,
+                                child: TapPulseEffect(size: screenWidth * 0.05),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.bottomCenter,
+                          padding: EdgeInsets.only(top: 20),
+                          child: ClapLabelBubble(screenWidth: screenWidth),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.all(8),
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+
+                    decoration: BoxDecoration(
+                      color: Colors.black38,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.white24),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SelectableText(
+                          "Bz7vVzQhm2KMW1XgcrDruYega1MiwrAs1DQysrx4tFkp",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize:
+                                screenWidth < 800
+                                    ? screenWidth / 40
+                                    : screenWidth / 60,
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.copy, color: Colors.white70),
+                          onPressed: () {
+                            Clipboard.setData(
+                              ClipboardData(
+                                text:
+                                    'Bz7vVzQhm2KMW1XgcrDruYega1MiwrAs1DQysrx4tFkp',
+                              ),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Copied!")),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 40),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "🖐️ Welcome to ClapOnSol!",
+                    style: TextStyle(
+                      fontSize:
+                          screenWidth < 800
+                              ? screenWidth * 0.033
+                              : screenWidth * 0.023,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  SizedBox(height: 24),
+                  Text(
+                    "Dive into the wild world of Web3 fun on Solana! 🔥",
+                    style: TextStyle(
+                      fontSize:
+                          screenWidth < 800
+                              ? screenWidth * 0.031
+                              : screenWidth * 0.021,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    "Here, clapping isn’t just for applause — it’s a way of life. 🖐️🩷",
+                    style: TextStyle(
+                      fontSize:
+                          screenWidth < 800
+                              ? screenWidth * 0.03
+                              : screenWidth * 0.02,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    "👋 Tap the magic hand, slap the objects, and start stacking \$CLAP — our meme-powered token built for the true Solana degens.",
+                    style: TextStyle(
+                      fontSize:
+                          screenWidth < 800
+                              ? screenWidth * 0.03
+                              : screenWidth * 0.02,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    "🚀 How it works:",
+                    style: TextStyle(
+                      fontSize:
+                          screenWidth < 800
+                              ? screenWidth * 0.031
+                              : screenWidth * 0.021,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  SizedBox(height: 6),
+
+                  SizedBox(
+                    height: screenWidth * 0.25,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+
+                      // Добавляем центрирование
+                      children: [
+                        Text.rich(
+                          TextSpan(
+                            style: TextStyle(
+                              fontSize: 16,
+                              height: 1.5,
+                              color: Colors.black87,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: "👉 Tap the hand\n",
+                                style: TextStyle(
+                                  fontSize:
+                                      screenWidth < 800
+                                          ? screenWidth * 0.03
+                                          : screenWidth * 0.02,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "👉 Clap the 👋 'objects' 😏 \n",
+                                style: TextStyle(
+                                  fontSize:
+                                      screenWidth < 800
+                                          ? screenWidth * 0.03
+                                          : screenWidth * 0.02,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "👉 Earn \$CLAP tokens\n",
+                                style: TextStyle(
+                                  fontSize:
+                                      screenWidth < 800
+                                          ? screenWidth * 0.03
+                                          : screenWidth * 0.02,
+                                  decoration: TextDecoration.lineThrough,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "    (in progress)\n",
+                                style: TextStyle(
+                                  fontSize:
+                                      screenWidth < 800
+                                          ? screenWidth * 0.03
+                                          : screenWidth * 0.02,
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "👉 Repeat and have fun 😉",
+                                style: TextStyle(
+                                  fontSize:
+                                      screenWidth < 800
+                                          ? screenWidth * 0.03
+                                          : screenWidth * 0.02,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        Stack(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(
+                                left: screenWidth * 0.08,
+                              ),
+
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: AnimatedContainer(
+                                  duration: Duration(milliseconds: 500),
+                                  width:
+                                      screenWidth < 800
+                                          ? screenWidth * 0.25
+                                          : screenWidth * 0.20,
+                                  transform: Matrix4.skewX(ballSkewBody)
+                                    ..scale(ballScaleBody),
+                                  decoration: BoxDecoration(
+                                    // shape: BoxShape.circle,
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.5),
+                                        blurRadius: 10,
+                                        spreadRadius: 4,
+                                      ),
+                                    ],
+                                  ),
+                                  child: AnimatedSwitcher(
+                                    duration: Duration(milliseconds: 100),
+                                    child: AspectRatio(
+                                      aspectRatio:
+                                          _controllerBody.value.aspectRatio,
+                                      child: RepaintBoundary(
+                                        child: VideoPlayer(_controllerBody),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                Positioned(
-                                  left: screenWidth * 0.01,top: screenWidth * 0.07,
-                                  // height:  screenWidth < 800
-                                  //     ? screenWidth * 0.25
-                                  //     : screenWidth * 0.20,
+                              ),
+                            ),
+                            Positioned(
+                              left: screenWidth * 0.01,
+                              top: screenWidth * 0.07,
 
-                                  child: AnimatedBuilder(
-                                    animation: _arcAnimationBody,
-                                    builder: (context, child) {
-                                      final angle =
+                              // height:  screenWidth < 800
+                              //     ? screenWidth * 0.25
+                              //     : screenWidth * 0.20,
+                              child: AnimatedBuilder(
+                                animation: _arcAnimationBody,
+                                builder: (context, child) {
+                                  final angle =
                                       lerpDouble(
                                         3 * pi / 190.0,
                                         pi / -360,
                                         _arcAnimationBody.value,
                                       )!;
-                                      return GestureDetector(
-                                        onTap: _triggerClapBody,
-                                        child: Transform.rotate(
-                                          angle: angle + pi / 700,
-                                          child: SizedBox(
-                                            width:
+                                  return GestureDetector(
+                                    onTap: _triggerClapBody,
+                                    child: Transform.rotate(
+                                      angle: angle + pi / 700,
+                                      child: SizedBox(
+                                        width:
                                             screenWidth < 800
                                                 ? screenWidth * 0.20
                                                 : screenWidth * 0.15,
-                                            child: Image.asset('assets/hand2.png'),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                Positioned(
-                                    top:screenWidth < 800?screenWidth * 0.2:screenWidth * 0.151,
-                                    // screenWidth < 800
-                                    //     ? screenWidth * 0.45
-                                    //     : screenWidth * 0.40,
-                                    left:screenWidth < 800?screenWidth * 0.09:screenWidth * 0.06,
-                                    //     screenWidth < 800
-                                    //         ? screenWidth * 0.15
-                                    //         : screenWidth * 0.15,
-                                    child: TapPulseEffect(size:screenWidth * 0.05,))
-                              ],
+                                        child: Image.asset('assets/hand2.png'),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
-
+                            Positioned(
+                              top:
+                                  screenWidth < 800
+                                      ? screenWidth * 0.2
+                                      : screenWidth * 0.151,
+                              // screenWidth < 800
+                              //     ? screenWidth * 0.45
+                              //     : screenWidth * 0.40,
+                              left:
+                                  screenWidth < 800
+                                      ? screenWidth * 0.09
+                                      : screenWidth * 0.06,
+                              //     screenWidth < 800
+                              //         ? screenWidth * 0.15
+                              //         : screenWidth * 0.15,
+                              child: TapPulseEffect(size: screenWidth * 0.05),
+                            ),
                           ],
-                        ),
-                      ),
-                      SizedBox(height: 24),
-                      Text(
-                        "Ready to clap your way to the top? 👏🚀",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                        fontSize: screenWidth < 800
-
-                        ? screenWidth * 0.03
-                          : screenWidth * 0.02,
-                      ),
-                      ),
-                      SizedBox(height: 6),
-
-                      Text(
-                        "Whether you're here for laughs or to farm some digital chaos 💥, this is the place to let your inner degen high-five the blockchain ✋🧠",
-
-                        style: TextStyle(
-                        fontSize: screenWidth < 800
-                        ? screenWidth * 0.03
-                          : screenWidth * 0.02,
-                      ),
-                      ),
-                      SizedBox(height: 6),
-
-                      Text(
-                        "Let’s clap it out! 👋",
-                        style: TextStyle(
-                          fontSize: screenWidth < 800
-                              ? screenWidth * 0.032
-                              : screenWidth * 0.022,
-                          decoration: TextDecoration.overline,
-                        ),
-                      ),
-
-                      SizedBox(height: 26),
-                      Container(
-                        alignment: Alignment.center,
-                        width:screenWidth/2,
-                         height: screenWidth/1.9+200,child: BubbleGamePage(screenWidth:screenWidth.toInt())),
-                      // Container(
-                      //   height: 500,
-                      //   decoration: BoxDecoration(
-                      //     color: const Color(0xFF1A1A1A),
-                      //     borderRadius: BorderRadius.circular(20),
-                      //     boxShadow: [
-                      //       BoxShadow(
-                      //         color: const Color(0xFF00FF9D).withOpacity(0.1),
-                      //         spreadRadius: 5,
-                      //         blurRadius: 15,
-                      //         offset: const Offset(0, 3),
-                      //       ),
-                      //     ],
-                      //   ),
-                      //   child: const DexScreenerChart(),
-                      // ),
-                      SizedBox(height: 26),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.9),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.5),
-                        blurRadius: 10,
-                        spreadRadius: 5,
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Wrap(
-                      spacing: 30,
-                      runSpacing: 20,
-                      alignment: WrapAlignment.center,
-                      children: [
-                        _buildSocialButton(
-                          'X (Twitter)',
-                          'https://x.com/claponsolx',
-                          const Color(0xFF1DA1F2),
-                          '𝕏',
-                        ),
-                        _buildSocialButton(
-                          'Telegram',
-                          'https://t.me/wapcoin',
-                          const Color(0xFF0088CC),
-                          '✈️',
-                        ),
-                        _buildSocialButton(
-                          'DexScreener',
-                          'https://dexscreener.com/solana/8pr4PXNzG8KcgzAkf5tebuPh1ct9ke5eC6VCd3PngutC',
-                          const Color(0xFF00FF9D),
-                          '📊',
                         ),
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
-          )
+                  SizedBox(height: 24),
+                  Text(
+                    "Ready to clap your way to the top? 👏🚀",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize:
+                          screenWidth < 800
+                              ? screenWidth * 0.03
+                              : screenWidth * 0.02,
+                    ),
+                  ),
+                  SizedBox(height: 6),
 
+                  Text(
+                    "Whether you're here for laughs or to farm some digital chaos 💥, this is the place to let your inner degen high-five the blockchain ✋🧠",
+
+                    style: TextStyle(
+                      fontSize:
+                          screenWidth < 800
+                              ? screenWidth * 0.03
+                              : screenWidth * 0.02,
+                    ),
+                  ),
+                  SizedBox(height: 6),
+
+                  Text(
+                    "Let’s clap it out! 👋",
+                    style: TextStyle(
+                      fontSize:
+                          screenWidth < 800
+                              ? screenWidth * 0.032
+                              : screenWidth * 0.022,
+                      decoration: TextDecoration.overline,
+                    ),
+                  ),
+
+                  SizedBox(height: 26),
+                  Container(
+                    alignment: Alignment.center,
+                    width: screenWidth / 2,
+                    height: screenWidth / 1.9 + 200,
+                    child: BubbleGamePage(screenWidth: screenWidth.toInt()),
+                  ),
+                  // Container(
+                  //   height: 500,
+                  //   decoration: BoxDecoration(
+                  //     color: const Color(0xFF1A1A1A),
+                  //     borderRadius: BorderRadius.circular(20),
+                  //     boxShadow: [
+                  //       BoxShadow(
+                  //         color: const Color(0xFF00FF9D).withOpacity(0.1),
+                  //         spreadRadius: 5,
+                  //         blurRadius: 15,
+                  //         offset: const Offset(0, 3),
+                  //       ),
+                  //     ],
+                  //   ),
+                  //   child: const DexScreenerChart(),
+                  // ),
+                  SizedBox(height: 26),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.9),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    blurRadius: 10,
+                    spreadRadius: 5,
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Wrap(
+                  spacing: 30,
+                  runSpacing: 20,
+                  alignment: WrapAlignment.center,
+                  children: [
+                    _buildSocialButton(
+                      'X (Twitter)',
+                      'https://x.com/claponsolx',
+                      const Color(0xFF1DA1F2),
+                      '𝕏',
+                    ),
+                    _buildSocialButton(
+                      'Telegram',
+                      'https://t.me/wapcoin',
+                      const Color(0xFF0088CC),
+                      '✈️',
+                    ),
+                    _buildSocialButton(
+                      'DexScreener',
+                      'https://dexscreener.com/solana/8pr4PXNzG8KcgzAkf5tebuPh1ct9ke5eC6VCd3PngutC',
+                      const Color(0xFF00FF9D),
+                      '📊',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -1172,8 +1214,7 @@ class CurvedContainerPainter extends CustomPainter {
 }
 
 class ScrollDownArrow extends StatefulWidget {
-
-  const ScrollDownArrow({super.key, });
+  const ScrollDownArrow({super.key});
 
   @override
   State<ScrollDownArrow> createState() => _ScrollDownArrowState();
@@ -1205,7 +1246,6 @@ class _ScrollDownArrowState extends State<ScrollDownArrow>
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SlideTransition(
@@ -1218,8 +1258,10 @@ class _ScrollDownArrowState extends State<ScrollDownArrow>
     );
   }
 }
+
 class TapPulseEffect extends StatefulWidget {
   final double size;
+
   const TapPulseEffect({super.key, this.size = 100});
 
   @override
@@ -1245,9 +1287,10 @@ class _TapPulseEffectState extends State<TapPulseEffect>
       vsync: this,
     )..repeat();
 
-    _animation = Tween<double>(begin: 0.2, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
-    );
+    _animation = Tween<double>(
+      begin: 0.2,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
   }
 
   @override
