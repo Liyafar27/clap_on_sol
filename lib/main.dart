@@ -28,15 +28,43 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  late VideoPlayerController _controller;
+  late VideoPlayerController _controllerBody;
+  late VideoPlayerController _controller3;
+  bool _videosReady = false;
+
   @override
   void initState() {
     super.initState();
+    _initVideos();
+  }
 
-    // Симуляция задержки, пока загружается сайт
-    Timer(Duration(seconds: 3), () {
+  Future<void> _initVideos() async {
+    _controller = VideoPlayerController.asset('assets/slap.mp4');
+    _controllerBody = VideoPlayerController.asset('assets/slap1.mp4');
+    _controller3 = VideoPlayerController.asset('assets/slap2.mp4');
+
+    await Future.wait([
+      _controller.initialize(),
+      _controllerBody.initialize(),
+      _controller3.initialize(),
+    ]);
+
+    setState(() {
+      _videosReady = true;
+    });
+
+    // Небольшая пауза для эффекта загрузки
+    Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => ClapOnSolPage()),
+        MaterialPageRoute(
+          builder: (context) => ClapOnSolPage(
+            controller: _controller,
+            controllerBody: _controllerBody,
+            controller3: _controller3,
+          ),
+        ),
       );
     });
   }
@@ -44,9 +72,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFF69B4),
+      backgroundColor: const Color(0xFFFF69B4),
       body: Center(
-        child: Column(
+        child: _videosReady
+            ? Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
@@ -57,39 +86,44 @@ class _SplashScreenState extends State<SplashScreen> {
                 children: [
                   Transform.translate(
                     offset: const Offset(2, 4),
-                    // Смещение тени
                     child: Image.asset(
                       'assets/title.png',
-                      color: Colors.black.withOpacity(0.7), // "тень"
+                      color: Colors.black.withOpacity(0.7),
                     ),
                   ),
                   Image.asset('assets/title.png'),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 100,
-              child: Image.asset(
-                'assets/slap.gif',
-                // color: Colors.black.withOpacity(0.3),
+              child: Image(
+                image: AssetImage('assets/slap.gif'),
                 fit: BoxFit.cover,
-                // "тень"
               ),
             ),
-            SizedBox(height: 20),
-
-            CircularProgressIndicator(color: Colors.white),
-            SizedBox(height: 20),
-            Text('Progressing...'),
+            const SizedBox(height: 20),
+            const CircularProgressIndicator(color: Colors.white),
+            const SizedBox(height: 20),
+            const Text('Loading videos...'),
           ],
-        ),
+        )
+            : const CircularProgressIndicator(color: Colors.white),
       ),
     );
   }
 }
+  class ClapOnSolPage extends StatefulWidget {
+    final VideoPlayerController controller;
+    final VideoPlayerController controllerBody;
+    final VideoPlayerController controller3;
 
-class ClapOnSolPage extends StatefulWidget {
-  const ClapOnSolPage({super.key});
+    const ClapOnSolPage({
+      super.key,
+      required this.controller,
+      required this.controllerBody,
+      required this.controller3,
+    });
 
   @override
   State<ClapOnSolPage> createState() => _ClapOnSolPageState();
@@ -124,9 +158,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   double ballSkewBody = 0;
 
   Future<void> _initAllVideos() async {
-    await _controller.initialize();
-    await _controllerBody.initialize();
-    await _controller3.initialize();
 
     setState(() {
       _isInitialized = true;
@@ -155,11 +186,10 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   @override
   void initState() {
     super.initState();
-
-    _controller = VideoPlayerController.asset('assets/slap.mp4');
-    _controllerBody = VideoPlayerController.asset('assets/slap1.mp4');
-    _controller3 = VideoPlayerController.asset('assets/slap2.mp4');
-    _initAllVideos();
+    _controller = widget.controller;
+    _controllerBody = widget.controllerBody;
+    _controller3 = widget.controller3;
+    // _initAllVideos();
     // _controller.initialize().then((_) {
     //   _controller.setLooping(true);
     //   setState(() {});
@@ -407,8 +437,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                           padding: const EdgeInsets.only(top: 16),
                           child: Stack(
                             children: [
-                              _isInitialized
-                                  ? Positioned(
+                             Positioned(
                                     top:
                                         screenWidth < 800
                                             ? screenWidth * 0.01
@@ -449,7 +478,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                       ),
                                     ),
                                   )
-                                  : Center(child: CircularProgressIndicator()),
+                                ,
                               Positioned(
                                 right: screenWidth * 0.0001,
                                 top:
@@ -503,8 +532,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                           padding: const EdgeInsets.only(top: 16),
                           child: Stack(
                             children: [
-                              _isInitialized
-                                  ? Positioned(
+                              Positioned(
                                     top:
                                         screenWidth < 800
                                             ? screenWidth * 0.25
@@ -546,7 +574,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                       ),
                                     ),
                                   )
-                                  : Center(child: CircularProgressIndicator()),
+                                 ,
                               Positioned(
                                 top:
                                     screenWidth < 800
@@ -912,28 +940,17 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                   ),
 
                   SizedBox(height: 26),
-                  Container(
-                    alignment: Alignment.center,
-                    width: screenWidth / 2,
-                    height: screenWidth / 1.9 + 200,
-                    child: BubbleGamePage(screenWidth: screenWidth.toInt()),
+                  Center(
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: screenWidth < 800
+                          ? screenWidth / 1.3 :screenWidth / 2,
+                      height:  screenWidth < 800
+                          ?screenWidth / 1.3 + 200: screenWidth / 1.9 + 200,
+                      child: BubbleGamePage(screenWidth: screenWidth.toInt()),
+                    ),
                   ),
-                  // Container(
-                  //   height: 500,
-                  //   decoration: BoxDecoration(
-                  //     color: const Color(0xFF1A1A1A),
-                  //     borderRadius: BorderRadius.circular(20),
-                  //     boxShadow: [
-                  //       BoxShadow(
-                  //         color: const Color(0xFF00FF9D).withOpacity(0.1),
-                  //         spreadRadius: 5,
-                  //         blurRadius: 15,
-                  //         offset: const Offset(0, 3),
-                  //       ),
-                  //     ],
-                  //   ),
-                  //   child: const DexScreenerChart(),
-                  // ),
+
                   SizedBox(height: 26),
                 ],
               ),

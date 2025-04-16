@@ -303,16 +303,16 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
                                               angle: _handRotation.value,
                                               child: Transform.translate(
                                                 offset: Offset(
-                                                    widget.screenWidth / -50,
-                                                    widget.screenWidth / -30),
+                                                    widget.screenWidth / -30,
+                                                    widget.screenWidth / -10),
                                                 child: child,
                                               ),
                                             );
                                           },
                                           child: Image.asset(
                                             'assets/hand2.png',
-                                            width: widget.screenWidth / 10,
-                                            height: widget.screenWidth / 10,
+                                            width: widget.screenWidth / 6,
+                                            height: widget.screenWidth / 6,
                                           ),
                                         ),
                                       ),
@@ -326,10 +326,12 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
                     ),
                   ),
                   if (!_isGameRunning)
-                    Container(
-                      width: widget.screenWidth / 1.5,
-                      height: widget.screenWidth / 1.5,
-                      color: Colors.grey.shade900.withOpacity(0.9),
+                    Positioned.fill(
+                      child: Container(
+                        // width: widget.screenWidth / 1.5,
+                        // height: widget.screenWidth / 1.5,
+                        color: Colors.grey.shade900.withOpacity(0.9),
+                      ),
                     ),
                   if (_isGameOver)
                     Positioned.fill(
