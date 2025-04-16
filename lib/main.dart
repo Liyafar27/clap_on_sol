@@ -188,7 +188,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
     _arcAnimation1 = Tween<double>(begin: -13, end: 2).animate(
       CurvedAnimation(parent: _clapController2, curve: Curves.easeOutBack),
     );
-    _arcAnimationBody = Tween<double>(begin: 13, end: 2).animate(
+    _arcAnimationBody = Tween<double>(begin: 6, end: -6).animate(
       CurvedAnimation(parent: _clapControllerBody, curve: Curves.easeOutBack),
     );
     _clapController.addStatusListener((status) {
@@ -640,8 +640,9 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                       Text(
                         "🖐️ Welcome to ClapOnSol!",
                         style: TextStyle(
-                          fontSize: 36,
-                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth < 800
+                              ? screenWidth * 0.033
+                              : screenWidth * 0.023,                          fontWeight: FontWeight.bold,
                           color: Colors.black87,
                         ),
                       ),
@@ -649,7 +650,9 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                       Text(
                         "Dive into the wild world of Web3 fun on Solana! 🔥",
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: screenWidth < 800
+                              ? screenWidth * 0.031
+                              : screenWidth * 0.021,
                           fontWeight: FontWeight.w500,
                           color: Colors.black87,
                         ),
@@ -657,24 +660,31 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                       SizedBox(height: 16),
                       Text(
                         "Here, clapping isn’t just for applause — it’s a way of life. 🖐️🩷",
-                        style: TextStyle(fontSize: 18, color: Colors.black87),
+                        style: TextStyle( fontSize: screenWidth < 800
+                            ? screenWidth * 0.03
+                            : screenWidth * 0.02, color: Colors.black87),
                       ),
                       SizedBox(height: 16),
                       Text(
                         "👋 Tap the magic hand, slap the objects, and start stacking \$CLAP — our meme-powered token built for the true Solana degens.",
-                        style: TextStyle(fontSize: 18, color: Colors.black87),
+                        style: TextStyle( fontSize: screenWidth < 800
+                            ? screenWidth * 0.03
+                            : screenWidth * 0.02,color: Colors.black87),
                       ),
                       SizedBox(height: 20),
                       Text(
                         "🚀 How it works:",
                         style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth < 800
+                              ? screenWidth * 0.031
+                              : screenWidth * 0.021,                          fontWeight: FontWeight.bold,
                           color: Colors.black87,
                         ),
                       ),
-                      SizedBox(height: 150,
+                      SizedBox(height:  screenWidth * 0.25,
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,  // Добавляем центрирование
+
                           children: [
                             Text.rich(
                               TextSpan(
@@ -684,22 +694,42 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                   color: Colors.black87,
                                 ),
                                 children: [
-                                  TextSpan(text: "👉 Tap the hand\n"),
-                                  TextSpan(text: "👉 Clap the 👋 'objects' 😏 \n"),
+                                  TextSpan(text: "👉 Tap the hand\n",
+                                    style: TextStyle(
+                                      fontSize: screenWidth < 800
+                                          ? screenWidth * 0.03
+                                          : screenWidth * 0.02,
+                                    ),),
+                                  TextSpan(text: "👉 Clap the 👋 'objects' 😏 \n",
+                                    style: TextStyle(
+                                      fontSize: screenWidth < 800
+                                          ? screenWidth * 0.03
+                                          : screenWidth * 0.02,
+                                    ),),
                                   TextSpan(
                                     text: "👉 Earn \$CLAP tokens\n",
                                     style: TextStyle(
+                                      fontSize: screenWidth < 800
+                                          ? screenWidth * 0.03
+                                          : screenWidth * 0.02,
                                       decoration: TextDecoration.lineThrough,
                                     ),
                                   ),
                                   TextSpan(
                                     text: "    (in progress)\n",
                                     style: TextStyle(
+                                      fontSize: screenWidth < 800
+                                          ? screenWidth * 0.03
+                                          : screenWidth * 0.02,
                                       fontStyle: FontStyle.italic,
                                       color: Colors.grey,
                                     ),
                                   ),
-                                  TextSpan(text: "👉 Repeat and have fun 😉"),
+                                  TextSpan(text: "👉 Repeat and have fun 😉",style: TextStyle(
+                                    fontSize: screenWidth < 800
+                                        ? screenWidth * 0.03
+                                        : screenWidth * 0.02,
+                                  ),),
                                 ],
                               ),
                             ),
@@ -707,7 +737,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                             Stack(
                               children: [
                                 Container(
-                                  padding: EdgeInsets.only(left: screenWidth * 0.10),
+                                  padding: EdgeInsets.only(left: screenWidth * 0.08),
 
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
@@ -741,52 +771,47 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                     ),
                                   ),
                                 ),
-                                Stack(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.only(left: screenWidth * 0.01,top: screenWidth * 0.07),
-                                      height:  screenWidth < 800
-                                          ? screenWidth * 0.25
-                                          : screenWidth * 0.20,
+                                Positioned(
+                                  left: screenWidth * 0.01,top: screenWidth * 0.07,
+                                  // height:  screenWidth < 800
+                                  //     ? screenWidth * 0.25
+                                  //     : screenWidth * 0.20,
 
-                                      child: AnimatedBuilder(
-                                        animation: _arcAnimationBody,
-                                        builder: (context, child) {
-                                          final angle =
-                                          lerpDouble(
-                                            3 * pi / 190.0,
-                                            pi / -360,
-                                            _arcAnimationBody.value,
-                                          )!;
-                                          return GestureDetector(
-                                            onTap: _triggerClapBody,
-                                            child: Transform.rotate(
-                                              angle: angle + pi / 700,
-                                              child: SizedBox(
-                                                width:
-                                                screenWidth < 800
-                                                    ? screenWidth * 0.25
-                                                    : screenWidth * 0.30,
-                                                child: Image.asset('assets/hand2.png'),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                    Positioned(
-                                        // top:
+                                  child: AnimatedBuilder(
+                                    animation: _arcAnimationBody,
+                                    builder: (context, child) {
+                                      final angle =
+                                      lerpDouble(
+                                        3 * pi / 190.0,
+                                        pi / -360,
+                                        _arcAnimationBody.value,
+                                      )!;
+                                      return GestureDetector(
+                                        onTap: _triggerClapBody,
+                                        child: Transform.rotate(
+                                          angle: angle + pi / 700,
+                                          child: SizedBox(
+                                            width:
+                                            screenWidth < 800
+                                                ? screenWidth * 0.20
+                                                : screenWidth * 0.15,
+                                            child: Image.asset('assets/hand2.png'),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                Positioned(
+                                    top:screenWidth < 800?screenWidth * 0.2:screenWidth * 0.151,
                                     // screenWidth < 800
                                     //     ? screenWidth * 0.45
                                     //     : screenWidth * 0.40,
-                                    //     left:
+                                    left:screenWidth < 800?screenWidth * 0.09:screenWidth * 0.06,
                                     //     screenWidth < 800
                                     //         ? screenWidth * 0.15
                                     //         : screenWidth * 0.15,
-                                        child: TapPulseEffect(size:screenWidth * 0.05,))
-                                  ],
-                                ),
-
+                                    child: TapPulseEffect(size:screenWidth * 0.05,))
                               ],
                             ),
 
@@ -797,27 +822,33 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                       Text(
                         "Ready to clap your way to the top? 👏🚀",
                         style: TextStyle(
-                          fontSize: 18,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black87,
-                        ),
+                          fontWeight: FontWeight.w600,
+                        fontSize: screenWidth < 800
+
+                        ? screenWidth * 0.03
+                          : screenWidth * 0.02,
                       ),
+                      ),
+                      SizedBox(height: 6),
 
                       Text(
                         "Whether you're here for laughs or to farm some digital chaos 💥, this is the place to let your inner degen high-five the blockchain ✋🧠",
+
                         style: TextStyle(
-                          fontSize: 16,
-                          height: 1.5,
-                          color: Colors.black87,
-                        ),
+                        fontSize: screenWidth < 800
+                        ? screenWidth * 0.03
+                          : screenWidth * 0.02,
                       ),
+                      ),
+                      SizedBox(height: 6),
 
                       Text(
                         "Let’s clap it out! 👋",
                         style: TextStyle(
-                          fontSize: 18,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black87,
+                          fontSize: screenWidth < 800
+                              ? screenWidth * 0.032
+                              : screenWidth * 0.022,
+                          decoration: TextDecoration.overline,
                         ),
                       ),
 
@@ -1232,15 +1263,21 @@ class _TapPulseEffectState extends State<TapPulseEffect>
   late AnimationController _controller;
   late Animation<double> _animation;
 
+  final List<Color> pulseColors = [
+    Colors.pinkAccent.withOpacity(0.5),
+    Colors.blueAccent.withOpacity(0.5),
+    Colors.yellowAccent.withOpacity(0.5),
+  ];
+
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
       duration: const Duration(seconds: 3),
       vsync: this,
-    )..repeat(); // бесконечная анимация
+    )..repeat();
 
-    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(
+    _animation = Tween<double>(begin: 0.2, end: 1.0).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeOut),
     );
   }
@@ -1274,7 +1311,7 @@ class _TapPulseEffectState extends State<TapPulseEffect>
                     height: widget.size * scale,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.yellowAccent.withOpacity(0.3),
+                      color: pulseColors[index % pulseColors.length],
                     ),
                   ),
                 );
@@ -1286,4 +1323,3 @@ class _TapPulseEffectState extends State<TapPulseEffect>
     );
   }
 }
-
