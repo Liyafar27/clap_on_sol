@@ -406,6 +406,10 @@ _controller.setLooping(true);
                               child: Stack(
                                 children: [
                                   Positioned(
+                                    top:
+                                    screenWidth < 800
+                                        ? screenWidth * 0.01
+                                        : screenWidth * 0.01,
                                     right: screenWidth * 0.1,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
