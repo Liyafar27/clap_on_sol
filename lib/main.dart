@@ -133,6 +133,7 @@ class _SplashScreenState extends State<SplashScreen> {
             const SizedBox(height: 20),
             _videosReady
                 ? Text('Loading videos...'):Text('Processing...'),
+
           ],
         )
       ),
