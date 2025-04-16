@@ -147,7 +147,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   bool _isPlaying2 = false;
   bool _isPlayingBody = false;
 
-  bool _isInitialized = false;
 
   bool isAnimating = false;
   double ballScale = 1;
@@ -157,31 +156,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   double ballScaleBody = 1;
   double ballSkewBody = 0;
 
-  Future<void> _initAllVideos() async {
-
-    setState(() {
-      _isInitialized = true;
-    }); // чтобы отобразились виджеты после инициализации
-
-    // 🔄 Быстрое проигрывание и пауза
-    _controller.setLooping(false);
-    _controller.play();
-    await Future.delayed(Duration(milliseconds: 1500));
-    _controller.pause();
-    _controller.seekTo(Duration.zero);
-
-    _controllerBody.setLooping(false);
-    _controllerBody.play();
-    await Future.delayed(Duration(milliseconds: 1500));
-    _controllerBody.pause();
-    _controllerBody.seekTo(Duration.zero);
-
-    _controller3.setLooping(false);
-    _controller3.play();
-    await Future.delayed(Duration(milliseconds: 1500));
-    _controller3.pause();
-    _controller3.seekTo(Duration.zero);
-  }
 
   @override
   void initState() {
@@ -189,21 +163,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
     _controller = widget.controller;
     _controllerBody = widget.controllerBody;
     _controller3 = widget.controller3;
-    // _initAllVideos();
-    // _controller.initialize().then((_) {
-    //   _controller.setLooping(true);
-    //   setState(() {});
-    // });
-    // _controllerBody.initialize().then((_) {
-    //   _controllerBody.setLooping(true);
-    //   setState(() {});
-    // });
-    //
-    // _controller3.initialize().then((_) {
-    //   _controller3.setLooping(true);
-    //   setState(() {});
-    // });
-
     _clapController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 150),
