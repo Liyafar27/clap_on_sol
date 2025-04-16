@@ -13,7 +13,7 @@ class Bubble {
 class BubbleGamePage extends StatefulWidget {
   final int screenWidth;
 
-  BubbleGamePage({
+  const BubbleGamePage({
     required this.screenWidth,
     super.key,
   });
@@ -330,13 +330,13 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
                       child: Container(
                         // width: widget.screenWidth / 1.5,
                         // height: widget.screenWidth / 1.5,
-                        color: Colors.grey.shade900.withOpacity(0.9),
+                        color: Colors.grey.shade900.withValues(alpha:0.9),
                       ),
                     ),
                   if (_isGameOver)
                     Positioned.fill(
                       child: Container(
-                        color: Colors.black.withOpacity(0.7),
+                        color: Colors.black.withValues(alpha:0.7),
                         child: Center(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,

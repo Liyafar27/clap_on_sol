@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:html' as html;
+import 'src/browser_utils_stub.dart'
+if (dart.library.html) 'src/browser_utils_html.dart';
 import 'dart:math';
 import 'dart:ui';
-import 'dart:ui_web' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
 
 class SplashScreen extends StatefulWidget {
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
@@ -43,9 +43,9 @@ class _SplashScreenState extends State<SplashScreen> {
       await controller.play();
       await Future.delayed(Duration(milliseconds: 100));
       await controller.pause();
-      await controller.seekTo(Duration.zero); // возвращаем в начало
+      await controller.seekTo(Duration.zero);
     } catch (e) {
-      print('Ошибка при prewarm: $e');
+
     }
   }
   Future<void> _initVideos() async {
@@ -71,7 +71,6 @@ class _SplashScreenState extends State<SplashScreen> {
       _videosReady = true;
     });
 
-    // Небольшая пауза для эффекта загрузки
     Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
@@ -105,7 +104,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     offset: const Offset(2, 4),
                     child: Image.asset(
                       'assets/title.png',
-                      color: Colors.black.withOpacity(0.7),
+                      color: Colors.black.withValues(alpha:0.7),
                     ),
                   ),
                   Image.asset('assets/title.png'),
@@ -365,9 +364,8 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                               child: SizedBox.expand(
                                 child: Image.asset(
                                   'assets/background.png',
-                                  color: Colors.black.withOpacity(0.3),
+                                  color: Colors.black.withValues(alpha:0.3),
                                   fit: BoxFit.cover,
-                                  // "тень"
                                 ),
                               ),
                             ),
@@ -396,12 +394,11 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                             children: [
                               Transform.translate(
                                 offset: const Offset(2, 4),
-                                // Смещение тени
                                 child: Image.asset(
                                   'assets/title.png',
-                                  color: Colors.black.withOpacity(
+                                  color: Colors.black.withValues(alpha:
                                     0.7,
-                                  ), // "тень"
+                                  ),
                                 ),
                               ),
                               Image.asset('assets/title.png'),
@@ -433,7 +430,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                           color: Colors.white,
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.black.withOpacity(
+                                              color: Colors.black.withValues(alpha:
                                                 0.5,
                                               ),
                                               blurRadius: 10,
@@ -458,8 +455,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                               Positioned(
                                 left:        screenWidth < 800
                                   ?screenWidth - screenWidth * 0.0001 - (screenWidth * 0.15):screenWidth - screenWidth * 0.0001 - (screenWidth * 0.20),
-
-                                // right: screenWidth * 0.0001,
                                 top:
                                     screenWidth < 800
                                         ? screenWidth * 0.08
@@ -529,11 +524,10 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                         transform: Matrix4.skewX(ballSkew)
                                           ..scale(ballScale),
                                         decoration: BoxDecoration(
-                                          // shape: BoxShape.circle,
                                           color: Colors.white,
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.black.withOpacity(
+                                              color: Colors.black.withValues(alpha:
                                                 0.5,
                                               ),
                                               blurRadius: 10,
@@ -725,8 +719,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                     height: screenWidth * 0.25,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-
-                      // Добавляем центрирование
                       children: [
                         Text.rich(
                           TextSpan(
@@ -806,11 +798,10 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                   transform: Matrix4.skewX(ballSkewBody)
                                     ..scale(ballScaleBody),
                                   decoration: BoxDecoration(
-                                    // shape: BoxShape.circle,
                                     color: Colors.white,
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.5),
+                                        color: Colors.black.withValues(alpha:0.5),
                                         blurRadius: 10,
                                         spreadRadius: 4,
                                       ),
@@ -832,10 +823,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                             Positioned(
                               left: screenWidth * 0.01,
                               top: screenWidth * 0.07,
-
-                              // height:  screenWidth < 800
-                              //     ? screenWidth * 0.25
-                              //     : screenWidth * 0.20,
                               child: AnimatedBuilder(
                                 animation: _arcAnimationBody,
                                 builder: (context, child) {
@@ -866,16 +853,10 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                   screenWidth < 800
                                       ? screenWidth * 0.2
                                       : screenWidth * 0.151,
-                              // screenWidth < 800
-                              //     ? screenWidth * 0.45
-                              //     : screenWidth * 0.40,
                               left:
                                   screenWidth < 800
                                       ? screenWidth * 0.09
                                       : screenWidth * 0.06,
-                              //     screenWidth < 800
-                              //         ? screenWidth * 0.15
-                              //         : screenWidth * 0.15,
                               child: TapPulseEffect(size: screenWidth * 0.05),
                             ),
                           ],
@@ -938,10 +919,10 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
             Container(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.9),
+                color: Colors.black.withValues(alpha:0.9),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
+                    color: Colors.black.withValues(alpha:0.5),
                     blurRadius: 10,
                     spreadRadius: 5,
                   ),
@@ -987,26 +968,25 @@ Widget _buildSocialButton(String label, String url, Color color, String icon) {
     cursor: SystemMouseCursors.click,
     child: GestureDetector(
       onTap: () {
-        html.window.open(url, '_blank');
-      },
+        openUrl(url);      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFFF69B4).withOpacity(0.8), Color(0xFFFF69B4)],
+            colors: [Color(0xFFFF69B4).withValues(alpha:0.8), Color(0xFFFF69B4)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Color(0xFFFF69B4).withOpacity(0.4),
+              color: Color(0xFFFF69B4).withValues(alpha:0.4),
               blurRadius: 20,
               spreadRadius: 2,
               offset: const Offset(0, 8),
             ),
           ],
-          border: Border.all(color: Colors.white.withOpacity(0.3), width: 1),
+          border: Border.all(color: Colors.white.withValues(alpha:0.3), width: 1),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -1021,7 +1001,6 @@ Widget _buildSocialButton(String label, String url, Color color, String icon) {
                   letterSpacing: 1,
                 ),
               ),
-              // const TextStyle(fontSize: 26, color: Colors.white),
             ),
             const SizedBox(width: 12),
             Text(
@@ -1042,79 +1021,6 @@ Widget _buildSocialButton(String label, String url, Color color, String icon) {
   );
 }
 
-class DexScreenerChart extends StatefulWidget {
-  const DexScreenerChart({super.key});
-
-  @override
-  State<DexScreenerChart> createState() => _DexScreenerChartState();
-}
-
-class _DexScreenerChartState extends State<DexScreenerChart> {
-  final String viewId = 'dexscreener-chart';
-
-  @override
-  void initState() {
-    super.initState();
-    // Register the view factory
-    ui.platformViewRegistry.registerViewFactory(viewId, (int viewId) {
-      final div =
-          html.DivElement()
-            ..id = 'dexscreener-embed'
-            ..style.position = 'relative'
-            ..style.width = '100%'
-            ..style.height = '100%';
-
-      final style =
-          html.StyleElement()
-            ..text = '''
-            #dexscreener-embed {
-              position: relative;
-              width: 100%;
-              height: 100%;
-            }
-            #dexscreener-embed iframe {
-              position: absolute;
-              width: 100%;
-              height: 100%;
-              top: 0;
-              left: 0;
-              border: 0;
-              pointer-events: none;
-            }
-            #dexscreener-embed iframe:hover {
-              pointer-events: auto;
-            }
-          ''';
-
-      final iframe =
-          html.IFrameElement()
-            ..src =
-                'https://dexscreener.com/solana/8pr4PXNzG8KcgzAkf5tebuPh1ct9ke5eC6VCd3PngutC?embed=1&loadChartSettings=0&chartLeftToolbar=0&chartDefaultOnMobile=1&chartTheme=dark&theme=dark&chartStyle=0&chartType=usd&interval=15';
-
-      // Add scroll event listener to the iframe
-      iframe.onWheel.listen((event) {
-        if (event.ctrlKey || event.metaKey) {
-          // Allow zooming
-          return;
-        }
-        // Prevent default scroll behavior
-        event.preventDefault();
-      });
-
-      div.children.add(style);
-      div.children.add(iframe);
-      return div;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: RepaintBoundary(child: HtmlElementView(viewType: viewId)),
-    );
-  }
-}
 
 class ClapLabelBubble extends StatelessWidget {
   final double screenWidth;
@@ -1130,7 +1036,7 @@ class ClapLabelBubble extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: Colors.orange.withOpacity(0.4),
+            color: Colors.orange..withValues(alpha:0.4),
             blurRadius: 10,
             offset: const Offset(2, 4),
           ),
@@ -1151,31 +1057,6 @@ class ClapLabelBubble extends StatelessWidget {
   }
 }
 
-class CurvedBadge extends StatelessWidget {
-  final String text;
-
-  const CurvedBadge({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: CurvedContainerPainter(),
-      child: SizedBox(
-        height: 100,
-        width: 300,
-        child: Center(
-          child: Transform.translate(
-            offset: const Offset(0, 20),
-            child: Text(
-              text,
-              style: GoogleFonts.luckiestGuy(fontSize: 22, color: Colors.pink),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class CurvedContainerPainter extends CustomPainter {
   @override
@@ -1271,9 +1152,9 @@ class _TapPulseEffectState extends State<TapPulseEffect>
   late Animation<double> _animation;
 
   final List<Color> pulseColors = [
-    Colors.pinkAccent.withOpacity(0.5),
-    Colors.blueAccent.withOpacity(0.5),
-    Colors.yellowAccent.withOpacity(0.5),
+    Colors.pinkAccent.withValues(alpha:0.5),
+    Colors.blueAccent.withValues(alpha:0.5),
+    Colors.yellowAccent.withValues(alpha:0.5),
   ];
 
   @override
