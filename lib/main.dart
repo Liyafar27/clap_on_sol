@@ -49,6 +49,9 @@ class _SplashScreenState extends State<SplashScreen> {
       _controllerBody.initialize(),
       _controller3.initialize(),
     ]);
+    _controller.setLooping(true);
+    _controllerBody.setLooping(true);
+    _controller3.setLooping(true);
 
     setState(() {
       _videosReady = true;
