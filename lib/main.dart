@@ -122,6 +122,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   double ballSkew1 = 0;
   double ballScaleBody = 1;
   double ballSkewBody = 0;
+
   Future<void> _initAllVideos() async {
     await _controller.initialize();
     await _controllerBody.initialize();
@@ -131,22 +132,25 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
 
     // 🔄 Быстрое проигрывание и пауза
     _controller.setLooping(false);
+    _controller3.setLooping(false);
+
     _controller.play();
+    _controller3.play();
+
     await Future.delayed(Duration(milliseconds: 1500));
     _controller.pause();
+    _controller3.pause();
+
     _controller.seekTo(Duration.zero);
+
+    // await Future.delayed(Duration(milliseconds:1500));
+    _controller3.seekTo(Duration.zero);
 
     _controllerBody.setLooping(false);
     _controllerBody.play();
     await Future.delayed(Duration(milliseconds: 1500));
     _controllerBody.pause();
     _controllerBody.seekTo(Duration.zero);
-
-    _controller3.setLooping(false);
-    _controller3.play();
-    await Future.delayed(Duration(milliseconds:1500));
-    _controller3.pause();
-    _controller3.seekTo(Duration.zero);
   }
   @override
   void initState() {
@@ -156,19 +160,19 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
     _controllerBody = VideoPlayerController.asset('assets/slap1.mp4');
     _controller3 = VideoPlayerController.asset('assets/slap2.mp4');
     _initAllVideos();
-    _controller.initialize().then((_) {
-      _controller.setLooping(true);
-      setState(() {});
-    });
-    _controllerBody.initialize().then((_) {
-      _controllerBody.setLooping(true);
-      setState(() {});
-    });
-
-    _controller3.initialize().then((_) {
-      _controller3.setLooping(true);
-      setState(() {});
-    });
+    // _controller.initialize().then((_) {
+    //   _controller.setLooping(true);
+    //   setState(() {});
+    // });
+    // _controllerBody.initialize().then((_) {
+    //   _controllerBody.setLooping(true);
+    //   setState(() {});
+    // });
+    //
+    // _controller3.initialize().then((_) {
+    //   _controller3.setLooping(true);
+    //   setState(() {});
+    // });
 
     _clapController = AnimationController(
       vsync: this,
@@ -218,7 +222,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
       _controller.play();
       setState(() => _isPlaying = true);
 
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(Duration(seconds: 3), () {
         if (_controller.value.isPlaying) {
           _controller.pause();
           setState(() => _isPlaying = false);
@@ -237,7 +241,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
       _controllerBody.play();
       setState(() => _isPlayingBody = true);
 
-      Future.delayed(Duration(seconds: 1), () {
+      Future.delayed(Duration(seconds: 3), () {
         if (_controllerBody.value.isPlaying) {
           _controllerBody.pause();
           setState(() => _isPlayingBody = false);
@@ -247,7 +251,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   }
 
   void _togglePlayPause3() {
-    _controller3.setPlaybackSpeed(1.5);
+    _controller3.setPlaybackSpeed(1);
     if (_controller3.value.isPlaying) {
       _controller3.pause();
       setState(() => _isPlaying2 = false);
@@ -256,7 +260,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
       _controller3.play();
       setState(() => _isPlaying2 = true);
 
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(Duration(seconds: 3), () {
         if (_controller3.value.isPlaying) {
           _controller3.pause();
           setState(() => _isPlaying2 = false);
