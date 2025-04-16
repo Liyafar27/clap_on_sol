@@ -114,6 +114,8 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   bool _isPlaying2 = false;
   bool _isPlayingBody = false;
 
+  bool _isInitialized = false;
+
 
   bool isAnimating = false;
   double ballScale = 1;
@@ -122,12 +124,16 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   double ballSkew1 = 0;
   double ballScaleBody = 1;
   double ballSkewBody = 0;
+
   Future<void> _initAllVideos() async {
     await _controller.initialize();
     await _controllerBody.initialize();
     await _controller3.initialize();
 
-    setState(() {}); // чтобы отобразились виджеты после инициализации
+    setState(() {
+      _isInitialized = true;
+
+    }); // чтобы отобразились виджеты после инициализации
 
     // 🔄 Быстрое проигрывание и пауза
     _controller.setLooping(false);
@@ -405,7 +411,8 @@ _controller.setLooping(true);
                               padding: const EdgeInsets.only(top: 16),
                               child: Stack(
                                 children: [
-                                  Positioned(
+                              _isInitialized
+                              ?   Positioned(
                                     top:
                                     screenWidth < 800
                                         ? screenWidth * 0.01
@@ -443,7 +450,7 @@ _controller.setLooping(true);
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ): Center(child: CircularProgressIndicator()),
                                   Positioned(
                                     right: screenWidth * 0.0001,
                                     top:
@@ -496,7 +503,8 @@ _controller.setLooping(true);
                               padding: const EdgeInsets.only(top: 16),
                               child: Stack(
                                 children: [
-                                  Positioned(
+                              _isInitialized
+                              ?    Positioned(
                                     top:
                                         screenWidth < 800
                                             ? screenWidth * 0.25
@@ -535,7 +543,7 @@ _controller.setLooping(true);
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ) : Center(child: CircularProgressIndicator()),
                                   Positioned(
                                     top:
                                         screenWidth < 800
