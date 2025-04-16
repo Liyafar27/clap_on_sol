@@ -602,7 +602,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                 fontSize:
                                     screenWidth < 800
                                         ? screenWidth / 40
-                                        : screenWidth / 30,
+                                        : screenWidth / 60,
                               ),
                             ),
                             IconButton(
@@ -681,6 +681,8 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                           color: Colors.black87,
                         ),
                       ),
+                      SizedBox(height: 6),
+
                       SizedBox(height:  screenWidth * 0.25,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,  // Добавляем центрирование
