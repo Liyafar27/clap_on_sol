@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:video_player/video_player.dart';
+
 import 'src/browser_utils_stub.dart'
 if (dart.library.html) 'src/browser_utils_html.dart';
 import 'dart:math';
@@ -7,7 +9,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:video_player/video_player.dart';
+// import 'package:video_player/video_player.dart';
 
 import 'ball_game.dart';
 
@@ -38,6 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     _initVideos();
   }
+
   Future<void> _prewarm(VideoPlayerController controller) async {
     try {
       await controller.play();
@@ -45,32 +48,40 @@ class _SplashScreenState extends State<SplashScreen> {
       await controller.pause();
       await controller.seekTo(Duration.zero);
     } catch (e) {
-
+      // Handle errors
     }
   }
+
   Future<void> _initVideos() async {
     _controller = VideoPlayerController.asset('assets/slap.mp4');
     _controllerBody = VideoPlayerController.asset('assets/slap1.mp4');
     _controller3 = VideoPlayerController.asset('assets/slap2.mp4');
-
+    _controller.setVolume(0);
+    _controllerBody.setVolume(0);
+    _controller3.setVolume(0);
+    // Initialize the controllers
     await Future.wait([
       _controller.initialize(),
       _controllerBody.initialize(),
       _controller3.initialize(),
     ]);
 
-    await _prewarm(_controller);
-    await _prewarm(_controllerBody);
-    await _prewarm(_controller3);
-
-    _controller.setLooping(true);
-    _controllerBody.setLooping(true);
-    _controller3.setLooping(true);
-
+    // Ensure that the state gets updated after the videos are initialized
     setState(() {
       _videosReady = true;
     });
 
+    // Prewarm the videos
+    await _prewarm(_controller);
+    await _prewarm(_controllerBody);
+    await _prewarm(_controller3);
+
+    // Set looping for all controllers
+    _controller.setLooping(true);
+    _controllerBody.setLooping(true);
+    _controller3.setLooping(true);
+
+    // Navigate to next screen after a delay
     Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
@@ -179,6 +190,13 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
     _controller = widget.controller;
     _controllerBody = widget.controllerBody;
     _controller3 = widget.controller3;
+
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _controller.play();
+      _controllerBody.play();
+      _controller3.play();
+    });
     _clapController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 150),

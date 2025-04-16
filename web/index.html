@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta autoplay="true" />
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
@@ -23,6 +24,17 @@
 <!-- ✅ Установка рендера на skwasm -->
 <script>
   window.flutterWebRenderer = "skwasm";
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const videos = document.querySelectorAll('video');
+    videos.forEach(video => {
+      video.muted = true;
+      video.play().catch(e => {
+        console.log('Autoplay prevented:', e);
+      });
+    });
+  });
 </script>
 
 <script src="flutter_bootstrap.js" async></script>
