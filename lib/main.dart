@@ -708,7 +708,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                       color: Colors.black87,
                     ),
                   ),                  SizedBox(height: 16),
-
                   Text('Did you know that the act of clapping 👋 releases endorphins 🩷, which are chemicals in the brain that promote a sense of well-being. So, the next time you clap for someone, remember that you\'re not just showing support; you\'re also spreading some joy!!!',
                     style: TextStyle(
                       fontSize:
