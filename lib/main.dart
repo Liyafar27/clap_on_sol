@@ -638,7 +638,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SelectableText(
-                          "Bz7vVzQhm2KMW1XgcrDruYega1MiwrAs1DQysrx4tFkp",
+                          "Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize:
