@@ -9,7 +9,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:video_player/video_player.dart';
 
 import 'ball_game.dart';
 
@@ -654,7 +653,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                             Clipboard.setData(
                               ClipboardData(
                                 text:
-                                    'Bz7vVzQhm2KMW1XgcrDruYega1MiwrAs1DQysrx4tFkp',
+                                    'Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump',
                               ),
                             );
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -960,13 +959,13 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                     ),
                     _buildSocialButton(
                       'Telegram',
-                      'https://t.me/wapcoin',
+                      'https://t.me/claponsoltg',
                       const Color(0xFF0088CC),
                       '✈️',
                     ),
                     _buildSocialButton(
                       'DexScreener',
-                      'https://dexscreener.com/solana/8pr4PXNzG8KcgzAkf5tebuPh1ct9ke5eC6VCd3PngutC',
+                      'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
                       const Color(0xFF00FF9D),
                       '📊',
                     ),
