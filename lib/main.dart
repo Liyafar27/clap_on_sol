@@ -685,6 +685,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                     ),
                   ),
                   SizedBox(height: 24),
+
                   Text(
                     "Dive into the wild world of Web3 fun on Solana! 🔥",
                     style: TextStyle(
@@ -698,7 +699,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                   ),
                   SizedBox(height: 16),
                   Text(
-                    "Here, clapping isn’t just for applause — it’s a way of life. 🖐️🩷",
+                    "Here, clapping isn’t just for applause — it’s a way of life. 🖐️",
                     style: TextStyle(
                       fontSize:
                           screenWidth < 800
@@ -706,10 +707,27 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                               : screenWidth * 0.02,
                       color: Colors.black87,
                     ),
-                  ),
+                  ),                  SizedBox(height: 16),
+
+                  Text('Did you know that the act of clapping 👋 releases endorphins 🩷, which are chemicals in the brain that promote a sense of well-being. So, the next time you clap for someone, remember that you\'re not just showing support; you\'re also spreading some joy!!!',
+                    style: TextStyle(
+                      fontSize:
+                      screenWidth < 800
+                          ? screenWidth * 0.04
+                          : screenWidth * 0.02,
+                      color: Colors.black87,
+                    ),),
+                  SizedBox(height: 16),
+                  Text('Spread joy and make profit at the same time!🔥' , style: TextStyle(
+                    fontSize:
+                    screenWidth < 800
+                        ? screenWidth * 0.04
+                        : screenWidth * 0.02,
+                    color: Colors.black87,
+                  ),),
                   SizedBox(height: 16),
                   Text(
-                    "👋 Tap the magic hand, slap the objects, and start stacking \$CLAP — our meme-powered token built for the true Solana degens.",
+                    "👋 Tap the magic hand, slap the \"objects\", and start stacking \$CLAP — our meme-powered token built for the true Solana degens.",
                     style: TextStyle(
                       fontSize:
                           screenWidth < 800
