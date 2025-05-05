@@ -1,10 +1,9 @@
-
 import 'dart:async';
 import 'dart:math';
+
 import 'package:confetti/confetti.dart';
-
-
 import 'package:flutter/material.dart';
+
 class Bubble {
   final int id;
   final Offset position;
@@ -12,21 +11,21 @@ class Bubble {
 
   Bubble({required this.id, required this.position, required this.image});
 }
+
 class BubbleGamePage extends StatefulWidget {
   final int screenWidth;
 
-  const BubbleGamePage({
-    required this.screenWidth,
-    super.key,
-  });
+  const BubbleGamePage({required this.screenWidth, super.key});
 
   @override
   State<BubbleGamePage> createState() => _BubbleGamePageState();
 }
-class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStateMixin {
+
+class _BubbleGamePageState extends State<BubbleGamePage>
+    with TickerProviderStateMixin {
   final List<String> _imagePaths = List.generate(
     15,
-        (index) => 'assets/ball_${index + 1}.png',
+    (index) => 'assets/ball_${index + 1}.png',
   );
   final List<Bubble> _bubbles = [];
 
@@ -36,15 +35,14 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
   late AnimationController _handController;
   late Animation<double> _handRotation;
   final double squareSize = 600;
-  int _score = 0; // Счёт
+  int _score = 0;
   bool _isGameRunning = false;
   late Timer _gameTimer;
-  late Timer _bubbleTimer; // Таймер для добавления пузырей
-  int _timeRemaining = 30; // Время игры
+  late Timer _bubbleTimer;
+  int _timeRemaining = 30;
   late Random random;
-  bool _isGameOver = false; // Флаг окончания игры
+  bool _isGameOver = false;
   late ConfettiController _confettiController;
-
 
   @override
   void initState() {
@@ -55,9 +53,11 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
       vsync: this,
     );
     _handRotation = Tween<double>(begin: -1, end: 0).animate(
-        CurvedAnimation(parent: _handController, curve: Curves.easeInOut));
-    _confettiController = ConfettiController(duration: const Duration(seconds: 3));
-
+      CurvedAnimation(parent: _handController, curve: Curves.easeInOut),
+    );
+    _confettiController = ConfettiController(
+      duration: const Duration(seconds: 3),
+    );
   }
 
   void _startGame() {
@@ -65,9 +65,9 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
       _score = 0;
       _isGameRunning = true;
       _timeRemaining = 30;
-      _isGameOver = false; // Игра не завершена
-      _positions.clear(); // Очистить предыдущие пузырьки
-      _activeIndexes.clear(); // Очистить индексы активных пузырьков
+      _isGameOver = false;
+      _positions.clear();
+      _activeIndexes.clear();
     });
 
     _gameTimer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -76,8 +76,8 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
           _timeRemaining--;
         } else {
           _gameTimer.cancel();
-          _bubbleTimer.cancel(); // Остановить таймер добавления пузырей
-          _isGameOver = true; // Игра завершена
+          _bubbleTimer.cancel();
+          _isGameOver = true;
           _isGameRunning = false;
           _showEndGameDialog();
         }
@@ -86,11 +86,11 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
 
     _bubbleTimer = Timer.periodic(Duration(seconds: 3), (timer) {
       if (_isGameRunning) {
-        _generateBubbles( 15); // Добавляем новые пузыри каждые 5 секунд
+        _generateBubbles(15);
       }
     });
 
-    _generateBubbles(15); // Добавляем начальные пузыри
+    _generateBubbles(15);
   }
 
   void _restartGame() {
@@ -123,8 +123,9 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
       }
     });
 
-    _generateBubbles(15); // Начать с пузырей
+    _generateBubbles(15);
   }
+
   void _generateBubbles(int quantity) {
     final random = Random();
     final double bubbleRadius = widget.screenWidth / 80;
@@ -136,7 +137,9 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
         random.nextDouble() * (fieldWidth - 2 * bubbleRadius) + bubbleRadius,
         random.nextDouble() * (fieldHeight - 2 * bubbleRadius) + bubbleRadius,
       );
-      final imageIndex = random.nextInt(_imagePaths.length); // -1 если hand в конце
+      final imageIndex = random.nextInt(
+        _imagePaths.length,
+      );
       final id = DateTime.now().microsecondsSinceEpoch + random.nextInt(10000);
       return Bubble(id: id, position: position, image: _imagePaths[imageIndex]);
     });
@@ -156,15 +159,14 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
       _score++;
     });
   }
+
   void _showEndGameDialog() {
     setState(() {
       _isGameOver = true;
       _isGameRunning = false;
       _confettiController.play();
-
     });
   }
-
 
   @override
   void dispose() {
@@ -200,8 +202,13 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
                 padding: const EdgeInsets.only(top: 8),
                 child: ElevatedButton(
                   onPressed: _isGameRunning ? null : _startGame,
-                  child: Text(_isGameRunning ? 'Game Running' : 'Start Game',  style: TextStyle(color: Color(0xFFFF69B4), fontWeight:FontWeight.w900),),
-
+                  child: Text(
+                    _isGameRunning ? 'Game Running' : 'Start Game',
+                    style: TextStyle(
+                      color: Color(0xFFFF69B4),
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 6),
@@ -210,30 +217,30 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: MouseRegion(
-                      cursor: SystemMouseCursors.none, // 👈 скрываем курсор в игровом поле
-
-                      child:  Listener(
-                      onPointerHover: (event) {
-                    setState(() {
-                    _mousePosition = event.localPosition;
-                    });
-                    },
+                      cursor: SystemMouseCursors.none,
+                      child: Listener(
+                        onPointerHover: (event) {
+                          setState(() {
+                            _mousePosition = event.localPosition;
+                          });
+                        },
                         child: AspectRatio(
-                        aspectRatio: 1,
-                        child: Container(
-                          width: widget.screenWidth / 1.5,
-                          height: widget.screenWidth / 1.5,
-                          color: Color(0xFFFF69B4),
+                          aspectRatio: 1,
+                          child: Container(
+                            width: widget.screenWidth / 1.5,
+                            height: widget.screenWidth / 1.5,
+                            color: Color(0xFFFF69B4),
 
                             child: GestureDetector(
                               onTapDown: (details) {
                                 setState(() {
                                   _mousePosition = details.localPosition;
                                 });
-                                // Перезапуск анимации
-                                _handController.reset(); // Сбрасываем анимацию
-                                if (!_handController.isAnimating) {  // Проверка, чтобы избежать повторного запуска
-                                  _handController.forward().then((_) => _handController.reverse());
+                                _handController.reset();
+                                if (!_handController.isAnimating) {
+                                  _handController.forward().then(
+                                    (_) => _handController.reverse(),
+                                  );
                                 }
                               },
                               child: Stack(
@@ -245,23 +252,12 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
                                       child: BubbleWidget(
                                         screenWidth: widget.screenWidth,
                                         imagePath: bubble.image,
-                                        onPopped: () => _removeBubble(bubble.id),
+                                        onPopped:
+                                            () => _removeBubble(bubble.id),
                                         position: bubble.position,
                                       ),
                                     );
                                   }),
-                                  // ..._activeIndexes.map((i) {
-                                  //   return Positioned(
-                                  //     left: _positions[i].dx,
-                                  //     top: _positions[i].dy,
-                                  //     child: BubbleWidget(
-                                  //       screenWidth: widget.screenWidth,
-                                  //       imagePath: _imagePaths[i],
-                                  //       onPopped: () => _removeBubble(i),
-                                  //       position: _positions[i],
-                                  //     ),
-                                  //   );
-                                  // }),
                                   if (_mousePosition != null)
                                     Positioned(
                                       left: _mousePosition!.dx,
@@ -274,8 +270,9 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
                                               angle: _handRotation.value,
                                               child: Transform.translate(
                                                 offset: Offset(
-                                                    widget.screenWidth / -30,
-                                                    widget.screenWidth / -10),
+                                                  widget.screenWidth / -30,
+                                                  widget.screenWidth / -10,
+                                                ),
                                                 child: child,
                                               ),
                                             );
@@ -299,33 +296,42 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
                   if (!_isGameRunning)
                     Positioned.fill(
                       child: Container(
-                        // width: widget.screenWidth / 1.5,
-                        // height: widget.screenWidth / 1.5,
-                        color: Colors.grey.shade900.withValues(alpha:0.9),
+                        color: Colors.grey.shade900.withValues(alpha: 0.9),
                       ),
                     ),
-
                   if (_isGameOver)
                     Positioned.fill(
                       child: Container(
-                        color: Colors.black.withValues(alpha:0.7),
+                        color: Colors.black.withValues(alpha: 0.7),
                         child: Center(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
                                 'Game Over!',
-                                style: TextStyle(color:  Color(0xFFFF69B4), fontSize: 32),
+                                style: TextStyle(
+                                  color: Color(0xFFFF69B4),
+                                  fontSize: 32,
+                                ),
                               ),
                               SizedBox(height: 12),
                               Text(
                                 'You clapped $_score!',
-                                style: TextStyle(color: Colors.white, fontSize: 24),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                ),
                               ),
                               SizedBox(height: 20),
                               ElevatedButton(
                                 onPressed: _restartGame,
-                                child: Text('Restart', style: TextStyle(color: Color(0xFFFF69B4), fontWeight:FontWeight.w900),),
+                                child: Text(
+                                  'Restart',
+                                  style: TextStyle(
+                                    color: Color(0xFFFF69B4),
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -342,9 +348,15 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
                           gravity: 0.3,
                           emissionFrequency: 0.05,
                           numberOfParticles: 80,
-                          colors:  [Colors.purpleAccent, Colors.pink, Colors.pinkAccent, Colors.pink[300]!],
+                          colors: [
+                            Colors.purpleAccent,
+                            Colors.pink,
+                            Colors.pinkAccent,
+                            Colors.pink[300]!,
+                          ],
                         ),
-                      ),),
+                      ),
+                    ),
                 ],
               ),
             ],
@@ -356,7 +368,7 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
 }
 
 class BubbleWidget extends StatefulWidget {
-  final int  screenWidth;
+  final int screenWidth;
   final String imagePath;
   final Offset position;
   final VoidCallback onPopped;
@@ -373,7 +385,8 @@ class BubbleWidget extends StatefulWidget {
   State<BubbleWidget> createState() => _BubbleWidgetState();
 }
 
-class _BubbleWidgetState extends State<BubbleWidget> with SingleTickerProviderStateMixin {
+class _BubbleWidgetState extends State<BubbleWidget>
+    with SingleTickerProviderStateMixin {
   bool _isPopped = false;
 
   late final AnimationController _popController;
@@ -384,21 +397,26 @@ class _BubbleWidgetState extends State<BubbleWidget> with SingleTickerProviderSt
   void initState() {
     super.initState();
 
-    // Создаем уникальный контроллер анимации для каждого пузыря
     _popController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 600),
     );
 
-    // Анимация для подергивания пузыря
     _shakeAnimation = TweenSequence<Offset>([
-      TweenSequenceItem(tween: Tween(begin: Offset.zero, end: const Offset(0.05, 0)), weight: 1),
-      TweenSequenceItem(tween: Tween(begin: const Offset(0.05, 0), end: const Offset(-0.05, 0)), weight: 1),
-      TweenSequenceItem(tween: Tween(begin: const Offset(-0.05, 0), end: Offset.zero), weight: 1),
+      TweenSequenceItem(
+        tween: Tween(begin: Offset.zero, end: const Offset(0.05, 0)),
+        weight: 1,
+      ),
+      TweenSequenceItem(
+        tween: Tween(begin: const Offset(0.05, 0), end: const Offset(-0.05, 0)),
+        weight: 1,
+      ),
+      TweenSequenceItem(
+        tween: Tween(begin: const Offset(-0.05, 0), end: Offset.zero),
+        weight: 1,
+      ),
       TweenSequenceItem(tween: ConstantTween(Offset.zero), weight: 3),
     ]).animate(CurvedAnimation(parent: _popController, curve: Curves.easeOut));
-
-    // Анимация для масштабирования пузыря
     _scaleAnimation = TweenSequence([
       TweenSequenceItem(tween: ConstantTween(1.0), weight: 3),
       TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.85), weight: 1),
@@ -409,39 +427,40 @@ class _BubbleWidgetState extends State<BubbleWidget> with SingleTickerProviderSt
     )..addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() => _isPopped = true);
-        widget.onPopped(); // Уведомляем родительский виджет о лопнувшем пузыре
+        widget.onPopped();
       }
     });
   }
 
-  // Метод для проверки, попал ли клик в область пузыря
+
   bool _isClickedInsideBubble(Offset clickPosition) {
     final bubbleRect = Rect.fromLTWH(
-      widget.position.dx - 70, // учтите смещение картинки
+      widget.position.dx - 70,
       widget.position.dy - 70,
-      140, // ширина пузыря
-      140, // высота пузыря
+      140,
+      140,
     );
 
-    return bubbleRect.contains(clickPosition); // Проверка попадания в пузырь
+    return bubbleRect.contains(clickPosition);
   }
 
   void _onTap(Offset clickPosition) {
-    if (_isPopped || _popController.isAnimating) return; // Если пузырь уже лопнул, игнорируем
-
+    if (_isPopped || _popController.isAnimating)
+      return;
     if (_isClickedInsideBubble(clickPosition)) {
-      _popController.forward(from: 0.0);  // Лопаем пузырь
+      _popController.forward(from: 0.0);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isPopped) return const SizedBox.shrink(); // Если пузырь лопнул, не показываем его
+    if (_isPopped)
+      return const SizedBox.shrink();
 
     return GestureDetector(
       onTap: () {
         if (!_isPopped) {
-          _onTap(widget.position);  // Проверка клика на конкретный пузырь
+          _onTap(widget.position);
         }
       },
       child: SlideTransition(
@@ -451,9 +470,8 @@ class _BubbleWidgetState extends State<BubbleWidget> with SingleTickerProviderSt
           child: ClipOval(
             child: Image.asset(
               widget.imagePath,
-              width:
-              widget.screenWidth/8,
-              height:  widget.screenWidth/8,
+              width: widget.screenWidth / 8,
+              height: widget.screenWidth / 8,
               fit: BoxFit.cover,
             ),
           ),
@@ -464,8 +482,7 @@ class _BubbleWidgetState extends State<BubbleWidget> with SingleTickerProviderSt
 
   @override
   void dispose() {
-    _popController.dispose();  // Освобождаем ресурсы
+    _popController.dispose();
     super.dispose();
   }
 }
-

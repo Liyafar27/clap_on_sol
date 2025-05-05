@@ -1,16 +1,15 @@
 import 'dart:async';
-import 'package:video_player/video_player.dart';
-
-import 'src/browser_utils_stub.dart'
-if (dart.library.html) 'src/browser_utils_html.dart';
 import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:video_player/video_player.dart';
 
 import 'ball_game.dart';
+import 'src/browser_utils_stub.dart'
+if (dart.library.html) 'src/browser_utils_htmlame.dart';
 
 void main() {
   runApp(MyApp());
@@ -85,11 +84,12 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => ClapOnSolPage(
-            controller: _controller,
-            controllerBody: _controllerBody,
-            controller3: _controller3,
-          ),
+          builder:
+              (context) => ClapOnSolPage(
+                controller: _controller,
+                controllerBody: _controllerBody,
+                controller3: _controller3,
+              ),
         ),
       );
     });
@@ -100,7 +100,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFFF69B4),
       body: Center(
-        child:  Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
@@ -113,7 +113,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     offset: const Offset(2, 4),
                     child: Image.asset(
                       'assets/title.png',
-                      color: Colors.black.withValues(alpha:0.7),
+                      color: Colors.black.withValues(alpha: 0.7),
                     ),
                   ),
                   Image.asset('assets/title.png'),
@@ -130,26 +130,25 @@ class _SplashScreenState extends State<SplashScreen> {
             const SizedBox(height: 20),
             const CircularProgressIndicator(color: Colors.white),
             const SizedBox(height: 20),
-            _videosReady
-                ? Text('Loading videos...'):Text('Processing...'),
-
+            _videosReady ? Text('Loading videos...') : Text('Processing...'),
           ],
-        )
+        ),
       ),
     );
   }
 }
-  class ClapOnSolPage extends StatefulWidget {
-    final VideoPlayerController controller;
-    final VideoPlayerController controllerBody;
-    final VideoPlayerController controller3;
 
-    const ClapOnSolPage({
-      super.key,
-      required this.controller,
-      required this.controllerBody,
-      required this.controller3,
-    });
+class ClapOnSolPage extends StatefulWidget {
+  final VideoPlayerController controller;
+  final VideoPlayerController controllerBody;
+  final VideoPlayerController controller3;
+
+  const ClapOnSolPage({
+    super.key,
+    required this.controller,
+    required this.controllerBody,
+    required this.controller3,
+  });
 
   @override
   State<ClapOnSolPage> createState() => _ClapOnSolPageState();
@@ -173,7 +172,6 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   bool _isPlaying2 = false;
   bool _isPlayingBody = false;
 
-
   bool isAnimating = false;
   double ballScale = 1;
   double ballSkew = 0;
@@ -182,14 +180,12 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
   double ballScaleBody = 1;
   double ballSkewBody = 0;
 
-
   @override
   void initState() {
     super.initState();
     _controller = widget.controller;
     _controllerBody = widget.controllerBody;
     _controller3 = widget.controller3;
-
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _controller.play();
@@ -381,7 +377,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                               child: SizedBox.expand(
                                 child: Image.asset(
                                   'assets/background.png',
-                                  color: Colors.black.withValues(alpha:0.3),
+                                  color: Colors.black.withValues(alpha: 0.3),
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -413,9 +409,7 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                 offset: const Offset(2, 4),
                                 child: Image.asset(
                                   'assets/title.png',
-                                  color: Colors.black.withValues(alpha:
-                                    0.7,
-                                  ),
+                                  color: Colors.black.withValues(alpha: 0.7),
                                 ),
                               ),
                               Image.asset('assets/title.png'),
@@ -427,51 +421,59 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                           padding: const EdgeInsets.only(top: 16),
                           child: Stack(
                             children: [
-                             Positioned(
-                                    top:
+                              Positioned(
+                                top:
+                                    screenWidth < 800
+                                        ? screenWidth * 0.01
+                                        : screenWidth * 0.01,
+                                left:
+                                    screenWidth -
+                                    screenWidth * 0.1 -
+                                    (screenWidth * 0.15),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: AnimatedContainer(
+                                    duration: Duration(milliseconds: 500),
+                                    width:
                                         screenWidth < 800
-                                            ? screenWidth * 0.01
-                                            : screenWidth * 0.01,
-                                left: screenWidth - screenWidth * 0.1 - (screenWidth * 0.15),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: AnimatedContainer(
-                                        duration: Duration(milliseconds: 500),
-                                        width:
-                                            screenWidth < 800
-                                                ? screenWidth * 0.20
-                                                : screenWidth * 0.15,
-                                        transform: Matrix4.skewX(ballSkew1)
-                                          ..scale(ballScale1),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.black.withValues(alpha:
-                                                0.5,
-                                              ),
-                                              blurRadius: 10,
-                                              spreadRadius: 4,
-                                            ),
-                                          ],
-                                        ),
-                                        child: AnimatedSwitcher(
-                                          duration: Duration(milliseconds: 100),
-                                          child: AspectRatio(
-                                            aspectRatio:
-                                                _controller3.value.aspectRatio,
-                                            child: RepaintBoundary(
-                                              child: VideoPlayer(_controller3),
-                                            ),
+                                            ? screenWidth * 0.20
+                                            : screenWidth * 0.15,
+                                    transform: Matrix4.skewX(ballSkew1)
+                                      ..scale(ballScale1),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withValues(
+                                            alpha: 0.5,
                                           ),
+                                          blurRadius: 10,
+                                          spreadRadius: 4,
+                                        ),
+                                      ],
+                                    ),
+                                    child: AnimatedSwitcher(
+                                      duration: Duration(milliseconds: 100),
+                                      child: AspectRatio(
+                                        aspectRatio:
+                                            _controller3.value.aspectRatio,
+                                        child: RepaintBoundary(
+                                          child: VideoPlayer(_controller3),
                                         ),
                                       ),
                                     ),
-                                  )
-                                ,
+                                  ),
+                                ),
+                              ),
                               Positioned(
-                                left:        screenWidth < 800
-                                  ?screenWidth - screenWidth * 0.0001 - (screenWidth * 0.15):screenWidth - screenWidth * 0.0001 - (screenWidth * 0.20),
+                                left:
+                                    screenWidth < 800
+                                        ? screenWidth -
+                                            screenWidth * 0.0001 -
+                                            (screenWidth * 0.15)
+                                        : screenWidth -
+                                            screenWidth * 0.0001 -
+                                            (screenWidth * 0.20),
                                 top:
                                     screenWidth < 800
                                         ? screenWidth * 0.08
@@ -504,8 +506,14 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                 ),
                               ),
                               Positioned(
-                                left:        screenWidth < 800
-                                    ?screenWidth - screenWidth * 0.01 - (screenWidth * 0.10):screenWidth - screenWidth * 0.01 - (screenWidth * 0.15),
+                                left:
+                                    screenWidth < 800
+                                        ? screenWidth -
+                                            screenWidth * 0.01 -
+                                            (screenWidth * 0.10)
+                                        : screenWidth -
+                                            screenWidth * 0.01 -
+                                            (screenWidth * 0.15),
                                 top:
                                     screenWidth < 800
                                         ? screenWidth * 0.18
@@ -525,47 +533,46 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                           child: Stack(
                             children: [
                               Positioned(
-                                    top:
+                                top:
+                                    screenWidth < 800
+                                        ? screenWidth * 0.25
+                                        : screenWidth * 0.20,
+                                left: screenWidth * 0.13,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: AnimatedContainer(
+                                    duration: Duration(milliseconds: 500),
+                                    width:
                                         screenWidth < 800
                                             ? screenWidth * 0.25
                                             : screenWidth * 0.20,
-                                    left: screenWidth * 0.13,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: AnimatedContainer(
-                                        duration: Duration(milliseconds: 500),
-                                        width:
-                                            screenWidth < 800
-                                                ? screenWidth * 0.25
-                                                : screenWidth * 0.20,
-                                        transform: Matrix4.skewX(ballSkew)
-                                          ..scale(ballScale),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.black.withValues(alpha:
-                                                0.5,
-                                              ),
-                                              blurRadius: 10,
-                                              spreadRadius: 4,
-                                            ),
-                                          ],
-                                        ),
-                                        child: AnimatedSwitcher(
-                                          duration: Duration(milliseconds: 100),
-                                          child: AspectRatio(
-                                            aspectRatio:
-                                                _controller.value.aspectRatio,
-                                            child: RepaintBoundary(
-                                              child: VideoPlayer(_controller),
-                                            ),
+                                    transform: Matrix4.skewX(ballSkew)
+                                      ..scale(ballScale),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withValues(
+                                            alpha: 0.5,
                                           ),
+                                          blurRadius: 10,
+                                          spreadRadius: 4,
+                                        ),
+                                      ],
+                                    ),
+                                    child: AnimatedSwitcher(
+                                      duration: Duration(milliseconds: 100),
+                                      child: AspectRatio(
+                                        aspectRatio:
+                                            _controller.value.aspectRatio,
+                                        child: RepaintBoundary(
+                                          child: VideoPlayer(_controller),
                                         ),
                                       ),
                                     ),
-                                  )
-                                 ,
+                                  ),
+                                ),
+                              ),
                               Positioned(
                                 top:
                                     screenWidth < 800
@@ -707,23 +714,29 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                               : screenWidth * 0.02,
                       color: Colors.black87,
                     ),
-                  ),                  SizedBox(height: 16),
-                  Text('Did you know that the act of clapping 👋 releases endorphins 🩷, which are chemicals in the brain that promote a sense of well-being. So, the next time you clap for someone, remember that you\'re not just showing support; you\'re also spreading some joy!!!',
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Did you know that the act of clapping 👋 releases endorphins 🩷, which are chemicals in the brain that promote a sense of well-being. So, the next time you clap for someone, remember that you\'re not just showing support; you\'re also spreading some joy!!!',
                     style: TextStyle(
                       fontSize:
-                      screenWidth < 800
-                          ? screenWidth * 0.04
-                          : screenWidth * 0.02,
+                          screenWidth < 800
+                              ? screenWidth * 0.04
+                              : screenWidth * 0.02,
                       color: Colors.black87,
-                    ),),
+                    ),
+                  ),
                   SizedBox(height: 16),
-                  Text('Spread joy and make profit at the same time!🔥' , style: TextStyle(
-                    fontSize:
-                    screenWidth < 800
-                        ? screenWidth * 0.04
-                        : screenWidth * 0.02,
-                    color: Colors.black87,
-                  ),),
+                  Text(
+                    'Spread joy and make profit at the same time!🔥',
+                    style: TextStyle(
+                      fontSize:
+                          screenWidth < 800
+                              ? screenWidth * 0.04
+                              : screenWidth * 0.02,
+                      color: Colors.black87,
+                    ),
+                  ),
                   SizedBox(height: 16),
                   Text(
                     "👋 Tap the magic hand, slap the \"objects\", and start stacking \$CLAP — our meme-powered token built for the true Solana degens.",
@@ -835,7 +848,9 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                                     color: Colors.white,
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withValues(alpha:0.5),
+                                        color: Colors.black.withValues(
+                                          alpha: 0.5,
+                                        ),
                                         blurRadius: 10,
                                         spreadRadius: 4,
                                       ),
@@ -938,10 +953,14 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
                   Center(
                     child: Container(
                       alignment: Alignment.center,
-                      width: screenWidth < 800
-                          ? screenWidth / 1.3 :screenWidth / 2,
-                      height:  screenWidth < 800
-                          ?screenWidth / 1.3 + 200: screenWidth / 1.9 + 200,
+                      width:
+                          screenWidth < 800
+                              ? screenWidth / 1.3
+                              : screenWidth / 2,
+                      height:
+                          screenWidth < 800
+                              ? screenWidth / 1.3 + 200
+                              : screenWidth / 1.9 + 200,
                       child: BubbleGamePage(screenWidth: screenWidth.toInt()),
                     ),
                   ),
@@ -953,10 +972,10 @@ class _ClapOnSolPageState extends State<ClapOnSolPage>
             Container(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha:0.9),
+                color: Colors.black.withValues(alpha: 0.9),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha:0.5),
+                    color: Colors.black.withValues(alpha: 0.5),
                     blurRadius: 10,
                     spreadRadius: 5,
                   ),
@@ -1002,25 +1021,32 @@ Widget _buildSocialButton(String label, String url, Color color, String icon) {
     cursor: SystemMouseCursors.click,
     child: GestureDetector(
       onTap: () {
-        openUrl(url);      },
+        openUrl(url);
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFFF69B4).withValues(alpha:0.8), Color(0xFFFF69B4)],
+            colors: [
+              Color(0xFFFF69B4).withValues(alpha: 0.8),
+              Color(0xFFFF69B4),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Color(0xFFFF69B4).withValues(alpha:0.4),
+              color: Color(0xFFFF69B4).withValues(alpha: 0.4),
               blurRadius: 20,
               spreadRadius: 2,
               offset: const Offset(0, 8),
             ),
           ],
-          border: Border.all(color: Colors.white.withValues(alpha:0.3), width: 1),
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.3),
+            width: 1,
+          ),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -1055,7 +1081,6 @@ Widget _buildSocialButton(String label, String url, Color color, String icon) {
   );
 }
 
-
 class ClapLabelBubble extends StatelessWidget {
   final double screenWidth;
 
@@ -1070,7 +1095,7 @@ class ClapLabelBubble extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: Colors.orange..withValues(alpha:0.4),
+            color: Colors.orange..withValues(alpha: 0.4),
             blurRadius: 10,
             offset: const Offset(2, 4),
           ),
@@ -1090,7 +1115,6 @@ class ClapLabelBubble extends StatelessWidget {
     );
   }
 }
-
 
 class CurvedContainerPainter extends CustomPainter {
   @override
@@ -1186,9 +1210,9 @@ class _TapPulseEffectState extends State<TapPulseEffect>
   late Animation<double> _animation;
 
   final List<Color> pulseColors = [
-    Colors.pinkAccent.withValues(alpha:0.5),
-    Colors.blueAccent.withValues(alpha:0.5),
-    Colors.yellowAccent.withValues(alpha:0.5),
+    Colors.pinkAccent.withValues(alpha: 0.5),
+    Colors.blueAccent.withValues(alpha: 0.5),
+    Colors.yellowAccent.withValues(alpha: 0.5),
   ];
 
   @override
