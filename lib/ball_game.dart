@@ -1,6 +1,8 @@
 
 import 'dart:async';
 import 'dart:math';
+import 'package:confetti/confetti.dart';
+
 
 import 'package:flutter/material.dart';
 class Bubble {
@@ -41,6 +43,7 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
   int _timeRemaining = 30; // Время игры
   late Random random;
   bool _isGameOver = false; // Флаг окончания игры
+  late ConfettiController _confettiController;
 
 
   @override
@@ -51,12 +54,10 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
       duration: Duration(milliseconds: 150),
       vsync: this,
     );
-
-    // _handRotation = Tween<double>(begin: -1.5, end: 0).animate(
-    //   CurvedAnimation(parent: _handController, curve: Curves.easeOut),
-    // );
     _handRotation = Tween<double>(begin: -1, end: 0).animate(
         CurvedAnimation(parent: _handController, curve: Curves.easeInOut));
+    _confettiController = ConfettiController(duration: const Duration(seconds: 3));
+
   }
 
   void _startGame() {
@@ -148,40 +149,6 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
     });
   }
 
-  // void _generateBubbles(int quantity) {
-  //   final random = Random();
-  //   final double bubbleRadius = widget.screenWidth / 32;
-  //   final double fieldWidth = widget.screenWidth / 2.2; // ширина игрового поля
-  //   final double fieldHeight = fieldWidth; // если поле квадратное
-  //
-  //   for (int i = 0; i < quantity; i++) {
-  //     _positions.add(Offset(
-  //       random.nextDouble() * (fieldWidth - 2 * bubbleRadius) + bubbleRadius,
-  //       random.nextDouble() * (fieldHeight - 2 * bubbleRadius) + bubbleRadius,
-  //     ));
-  //     _activeIndexes.add(i);
-  //   }
-  //
-  //   if (_positions.length > 50) {
-  //     _positions.removeRange(0, _positions.length - 50);
-  //     _activeIndexes.removeRange(0, _activeIndexes.length - 50);
-  //   }
-  //
-  //   final List<Offset> shuffledPositions = List.from(_positions)
-  //     ..shuffle(random);
-  //   setState(() {
-  //     _positions.clear();
-  //     _positions.addAll(shuffledPositions);
-  //   });
-  // }
-
-  // void _removeBubble(int index) {
-  //   if (_isGameOver) return;
-  //   setState(() {
-  //     _activeIndexes.remove(index);
-  //     _score++;
-  //   });
-  // }
   void _removeBubble(int id) {
     if (_isGameOver) return;
     setState(() {
@@ -193,6 +160,8 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
     setState(() {
       _isGameOver = true;
       _isGameRunning = false;
+      _confettiController.play();
+
     });
   }
 
@@ -202,6 +171,8 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
     _gameTimer.cancel();
     _bubbleTimer.cancel();
     _handController.dispose();
+    _confettiController.dispose();
+
     super.dispose();
   }
 
@@ -333,6 +304,7 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
                         color: Colors.grey.shade900.withValues(alpha:0.9),
                       ),
                     ),
+
                   if (_isGameOver)
                     Positioned.fill(
                       child: Container(
@@ -360,7 +332,19 @@ class _BubbleGamePageState extends State<BubbleGamePage> with TickerProviderStat
                         ),
                       ),
                     ),
-
+                  if (_isGameOver)
+                    Positioned.fill(
+                      child: Center(
+                        child: ConfettiWidget(
+                          confettiController: _confettiController,
+                          blastDirectionality: BlastDirectionality.explosive,
+                          shouldLoop: false,
+                          gravity: 0.3,
+                          emissionFrequency: 0.05,
+                          numberOfParticles: 80,
+                          colors:  [Colors.purpleAccent, Colors.pink, Colors.pinkAccent, Colors.pink[300]!],
+                        ),
+                      ),),
                 ],
               ),
             ],
